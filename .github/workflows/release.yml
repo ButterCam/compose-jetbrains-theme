@@ -35,6 +35,11 @@ jobs:
           ${{ github.event.release.body }}
           EOM`"
 
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+
       - uses: ButterCam/setup-sisyphus-build@v1
         with:
           dependency-repositories: local,central,portal,google,snapshot
