@@ -8,7 +8,7 @@ plugins {
     id("nebula.contacts") version "5.1.0"
     id("nebula.info") version "11.0.1"
     id("com.bybutter.sisyphus.project") version "1.3.10"
-    java
+    `java-library`
 }
 
 group = "com.bybutter.compose"
