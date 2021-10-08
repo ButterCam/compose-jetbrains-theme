@@ -6,6 +6,18 @@ JetBrains style controls and UI for [Compose Desktop](https://www.jetbrains.com/
 
 ## Quick Start
 
+## 1. Add dependency
+```kotlin
+dependencies {
+    implementation(compose.desktop.currentOs) {
+        exclude("org.jetbrains.compose.material")
+    }
+    implementation("com.bybutter.compose:compose-jetbrains-theme")
+}
+```
+
+## 2. JBTheme DSL
+
 ```kotlin
 fun main() = application {
     Window(

@@ -78,7 +78,7 @@ jobs:
           git commit -am "Changelog update - $VERSION"
           git push --set-upstream origin $BRANCH
           gh pr create \
-            --title "Changelog update - \`$VERSION\`" \
+            --title ":bookmark: Changelog update - \`$VERSION\`" \
             --body "Current pull request contains patched \`CHANGELOG.md\` file for the \`$VERSION\` version." \
             --base main \
             --head $BRANCH
