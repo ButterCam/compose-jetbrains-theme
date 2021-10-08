@@ -3,7 +3,8 @@ plugins {
     id("org.jetbrains.compose") version "1.0.0-alpha4-build396"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0" apply false
     id("org.jetbrains.changelog") version "1.3.0"
-    id("nebula.maven-publish") version "17.0.0"
+    id("nebula.maven-publish") version "18.0.0"
+    id("nebula.source-jar") version "18.0.0"
     id("nebula.contacts") version "5.1.0"
     id("nebula.info") version "11.0.1"
     id("com.bybutter.sisyphus.project") version "1.3.10"
