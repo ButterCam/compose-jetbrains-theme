@@ -3,6 +3,10 @@ plugins {
     id("org.jetbrains.compose") version "1.0.0-alpha4-build396"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0" apply false
     id("org.jetbrains.changelog") version "1.2.0"
+    id("nebula.maven-publish") version "17.0.0"
+    id("nebula.contacts") version "5.1.0"
+    id("nebula.info") version "11.0.1"
+    id("com.bybutter.sisyphus.project") version "1.3.10"
     java
 }
 
@@ -10,9 +14,10 @@ group = "com.bybutter.compose"
 version = "1.0"
 
 repositories {
+    mavenLocal()
     mavenCentral()
     google()
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
 dependencies {
@@ -39,4 +44,12 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
 changelog {
     version.set(project.version.toString())
     groups.set(emptyList())
+}
+
+contacts {
+    addPerson("higan@live.cn", delegateClosureOf<nebula.plugin.contacts.Contact> {
+        moniker = "higan"
+        github = "devkanro"
+        roles.add("owner")
+    })
 }
