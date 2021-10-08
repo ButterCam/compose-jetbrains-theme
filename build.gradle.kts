@@ -13,6 +13,7 @@ plugins {
 
 group = "com.bybutter.compose"
 version = "1.0"
+description = "JetBrains UI Kit for Compose Desktop"
 
 repositories {
     mavenLocal()
