@@ -1,5 +1,6 @@
 package io.kanro.compose.jetbrains
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalScrollbarStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -31,8 +32,10 @@ import io.kanro.compose.jetbrains.color.SelectionColors
 import io.kanro.compose.jetbrains.color.TabColors
 import io.kanro.compose.jetbrains.color.TextColors
 import io.kanro.compose.jetbrains.color.ToolBarColors
+import io.kanro.compose.jetbrains.control.JBContextMenuRepresentation
 import io.kanro.compose.jetbrains.control.LocalContentAlpha
 import io.kanro.compose.jetbrains.control.LocalContentColor
+import io.kanro.compose.jetbrains.control.LocalContextMenuRepresentation
 import io.kanro.compose.jetbrains.control.ProvideTextStyle
 
 @Composable
@@ -166,6 +169,7 @@ enum class JBIconTheme {
 
 val LocalIconTheme = compositionLocalOf { JBIconTheme.LIGHT }
 
+@OptIn(ExperimentalFoundationApi::class)
 val LocalSelectionScope = compositionLocalOf<@Composable (@Composable () -> Unit) -> Unit> {
     {
         CompositionLocalProvider(
@@ -175,6 +179,10 @@ val LocalSelectionScope = compositionLocalOf<@Composable (@Composable () -> Unit
             ),
             LocalContentColor provides Color.White,
             LocalContentAlpha provides 1.0f,
+            LocalContextMenuRepresentation provides JBContextMenuRepresentation(
+                JBTheme.panelColors.bgContent,
+                JBTheme.panelColors.border
+            ),
             content = it
         )
     }

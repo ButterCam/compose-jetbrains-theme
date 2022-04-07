@@ -3,16 +3,16 @@ package io.kanro.compose.jetbrains.control
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.IndicationInstance
 import androidx.compose.foundation.interaction.InteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import io.kanro.compose.jetbrains.JBTheme
-import io.kanro.compose.jetbrains.interaction.collectIsHoverAsState
 
 object ListItemHoverIndication : Indication {
-    private class CallIndicationInstance(
+    private class HoverIndicationInstance(
         private val isHover: State<Boolean>,
         private val hoverColor: Color,
     ) : IndicationInstance {
@@ -28,10 +28,10 @@ object ListItemHoverIndication : Indication {
 
     @Composable
     override fun rememberUpdatedInstance(interactionSource: InteractionSource): IndicationInstance {
-        val isHover = interactionSource.collectIsHoverAsState()
+        val isHover = interactionSource.collectIsHoveredAsState()
         val hoverColor = JBTheme.selectionColors.hover
         return remember(interactionSource) {
-            CallIndicationInstance(
+            HoverIndicationInstance(
                 isHover,
                 hoverColor,
             )

@@ -1,6 +1,7 @@
 package io.kanro.compose.jetbrains.color
 
 import androidx.compose.foundation.interaction.InteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -10,7 +11,6 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import io.kanro.compose.jetbrains.interaction.collectIsHoverAsState
 
 class ToolBarColors(
     buttonPressed: Color,
@@ -32,7 +32,7 @@ class ToolBarColors(
     @Composable
     fun actionIconBgColor(interactionSource: InteractionSource): State<Color> {
         val pressed by interactionSource.collectIsPressedAsState()
-        val hover by interactionSource.collectIsHoverAsState()
+        val hover by interactionSource.collectIsHoveredAsState()
         val targetValue = when {
             pressed -> buttonPressed
             hover -> buttonHover

@@ -6,8 +6,10 @@ import androidx.compose.foundation.IndicationInstance
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,8 +33,6 @@ import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.unit.dp
 import io.kanro.compose.jetbrains.JBTheme
-import io.kanro.compose.jetbrains.interaction.collectIsHoverAsState
-import io.kanro.compose.jetbrains.interaction.hoverable
 
 object ActionButtonIndication : Indication {
     private class ActionButtonIndicationInstance(
@@ -61,7 +61,7 @@ object ActionButtonIndication : Indication {
     override fun rememberUpdatedInstance(interactionSource: InteractionSource): IndicationInstance {
         val shape = remember { RoundedCornerShape(3.dp) }
         val isPressed = interactionSource.collectIsPressedAsState()
-        val isHover = interactionSource.collectIsHoverAsState()
+        val isHover = interactionSource.collectIsHoveredAsState()
         val hoverColor = JBTheme.toolBarColors.buttonHover
         val pressedColor = JBTheme.toolBarColors.buttonPressed
         return remember(interactionSource) {
@@ -121,7 +121,7 @@ fun ActionButton(
                 enabled = enabled,
                 onClick = onClick
             )
-            .hoverable(rememberCoroutineScope(), interactionSource, enabled),
+            .hoverable(interactionSource, enabled),
         propagateMinConstraints = true
     ) {
         CompositionLocalProvider(

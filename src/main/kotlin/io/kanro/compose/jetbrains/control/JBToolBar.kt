@@ -19,34 +19,55 @@ import androidx.compose.ui.unit.dp
 import io.kanro.compose.jetbrains.JBTheme
 
 @Composable
-fun JBToolBar(orientation: Orientation, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+fun JBToolBar(
+    orientation: Orientation,
+    arrangement: Arrangement.HorizontalOrVertical = Arrangement.spacedBy(8.dp),
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
     CompositionLocalProvider(
         LocalToolBarOrientation provides orientation,
     ) {
         when (orientation) {
-            Orientation.Vertical -> JBToolBarColumn(modifier.width(28.dp), content)
-            Orientation.Horizontal -> JBToolBarRow(modifier.height(28.dp), content)
+            Orientation.Vertical -> JBToolBarColumn(
+                modifier.width(28.dp),
+                verticalArrangement = arrangement,
+                content = content
+            )
+            Orientation.Horizontal -> JBToolBarRow(
+                modifier.height(28.dp),
+                horizontalArrangement = arrangement,
+                content = content
+            )
         }
     }
 }
 
 @Composable
-private fun JBToolBarColumn(modifier: Modifier, content: @Composable () -> Unit) {
+private fun JBToolBarColumn(
+    modifier: Modifier,
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(8.dp),
+    content: @Composable () -> Unit
+) {
     Column(
         modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement,
+        Alignment.CenterHorizontally,
     ) {
         content()
     }
 }
 
 @Composable
-private fun JBToolBarRow(modifier: Modifier, content: @Composable () -> Unit) {
+private fun JBToolBarRow(
+    modifier: Modifier,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.spacedBy(8.dp),
+    content: @Composable () -> Unit
+) {
     Row(
         modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement,
+        Alignment.CenterVertically,
     ) {
         content()
     }
