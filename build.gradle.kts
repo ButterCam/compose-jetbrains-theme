@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.bybutter.compose"
-version = "1.0.1"
+version = "1.0.2"
 description = "JetBrains UI Kit for Compose Desktop"
 
 repositories {
