@@ -93,4 +93,16 @@ fun lightFieldColors(): FieldColors {
     )
 }
 
+fun darkFieldColors(): FieldColors {
+    return FieldColors(
+        Color(0xFF4C5052),
+        Color(0xFF5E6060),
+        Color(0xFF456A90),
+        Color(0xFF3C3F41),
+        Color(0xFF3C3F41),
+        Color(0xFF646464),
+        Color(0xFF73454B),
+    )
+}
+
 val LocalFieldColors = staticCompositionLocalOf { lightFieldColors() }

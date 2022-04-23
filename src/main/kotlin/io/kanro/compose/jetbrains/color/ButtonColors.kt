@@ -168,4 +168,17 @@ fun lightButtonColors(): ButtonColors {
     )
 }
 
+fun darkButtonColors(): ButtonColors {
+    return ButtonColors(
+        Color(0xFF4C5052),
+        Color(0xFF5E6060),
+        Color(0xFF456A90),
+        Color(0xFF365880), Color(0xFF365880),
+        Color(0xFF4C708C), Color(0xFF4C708C),
+        Color(0xFF537699),
+        Color(0xFF3C3F41),
+        Color(0xFF646464),
+    )
+}
+
 val LocalButtonColors = staticCompositionLocalOf { lightButtonColors() }

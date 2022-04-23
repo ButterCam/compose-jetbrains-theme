@@ -50,4 +50,12 @@ fun lightToolBarColors(): ToolBarColors {
     )
 }
 
+fun darkToolbarColors(): ToolBarColors {
+    return ToolBarColors(
+        Color(0xFF5C6164),
+        Color(0xFF4C5052),
+        Color(0xFF6B6B6B),
+    )
+}
+
 val LocalToolBarColors = staticCompositionLocalOf { lightToolBarColors() }

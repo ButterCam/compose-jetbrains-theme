@@ -44,4 +44,15 @@ fun lightTabColors(): TabColors {
     )
 }
 
+fun darkTabColors(): TabColors {
+    return TabColors(
+        Color(0xFF4A88C7),
+        Color(0xFF3D4B5C),
+        Color(0xFF747A80),
+        Color(0xFF2E3133),
+        Color(0xFF595959),
+        Color(0xFF4E5254),
+    )
+}
+
 val LocalTabColors = staticCompositionLocalOf { lightTabColors() }

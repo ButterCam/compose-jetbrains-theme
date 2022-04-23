@@ -38,4 +38,10 @@ fun lightScrollColors(): ScrollColors {
     )
 }
 
+fun darkScrollColors(): ScrollColors {
+    return ScrollColors(
+        Color(0xFF494949)
+    )
+}
+
 val LocalScrollColors = staticCompositionLocalOf { lightScrollColors() }

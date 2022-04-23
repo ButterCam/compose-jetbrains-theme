@@ -36,4 +36,13 @@ fun lightFocusColors(): FocusColors {
     )
 }
 
+fun darkFocusColors(): FocusColors {
+    return FocusColors(
+        Color(0xFF3D6185),
+        Color(0xFF8B3C3C),
+        Color(0xFFAC7920),
+        Color(0xFF6E5324),
+    )
+}
+
 val LocalFocusColors = staticCompositionLocalOf { lightFocusColors() }
