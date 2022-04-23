@@ -50,7 +50,7 @@ fun lightToolBarColors(): ToolBarColors {
     )
 }
 
-fun darkToolbarColors(): ToolBarColors {
+fun darkToolBarColors(): ToolBarColors {
     return ToolBarColors(
         Color(0xFF5C6164),
         Color(0xFF4C5052),
