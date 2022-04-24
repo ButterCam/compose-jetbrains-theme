@@ -14,11 +14,16 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import io.kanro.compose.jetbrains.JBTheme
-import io.kanro.compose.jetbrains.res.themedSvgResource
+import io.kanro.compose.jetbrains.icons.JBIcons
+import io.kanro.compose.jetbrains.icons.jbicons.Actions
+import io.kanro.compose.jetbrains.icons.jbicons.actions.Checkmark
+import io.kanro.compose.jetbrains.icons.jbicons.actions.CheckmarkIndeterminate
 
 @Composable
 fun CheckBox(
@@ -76,8 +81,8 @@ private fun CheckboxImpl(
     modifier: Modifier
 ) {
     val icon = when (value) {
-        ToggleableState.On -> themedSvgResource("jetbrains/AllIcons/actions/checkmark.svg")
-        ToggleableState.Indeterminate -> themedSvgResource("jetbrains/AllIcons/actions/checkmark_indeterminate.svg")
+        ToggleableState.On -> rememberVectorPainter(JBIcons.Actions.Checkmark)
+        ToggleableState.Indeterminate -> rememberVectorPainter(JBIcons.Actions.CheckmarkIndeterminate)
         else -> null
     }
     val iconFilter = if (!enabled) {

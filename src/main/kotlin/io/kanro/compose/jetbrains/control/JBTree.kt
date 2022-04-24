@@ -23,8 +23,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
+import io.kanro.compose.jetbrains.JBIconTheme
 import io.kanro.compose.jetbrains.JBTheme
+import io.kanro.compose.jetbrains.LocalIconTheme
 import io.kanro.compose.jetbrains.SelectionScope
+import io.kanro.compose.jetbrains.icons.JBIcons
+import io.kanro.compose.jetbrains.icons.jbicons.Actions
+import io.kanro.compose.jetbrains.icons.jbicons.actions.ArrowExpand
+import io.kanro.compose.jetbrains.icons.jbicons.actions.ArrowExpandDark
 
 @Composable
 fun JBTreeItem(
@@ -59,8 +65,9 @@ fun JBTreeItem(
             }
         ) {
             Row {
+                val isDarkTheme = LocalIconTheme.current == JBIconTheme.DARK
                 Icon(
-                    resource = "jetbrains/AllIcons/actions/arrowExpand.svg",
+                    imageVector = if(isDarkTheme) JBIcons.Actions.ArrowExpandDark else JBIcons.Actions.ArrowExpand,
                     modifier = Modifier.size(16.dp).clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null
