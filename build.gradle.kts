@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "1.6.10"
-    id("org.jetbrains.compose") version "1.0.1"
+    id("org.jetbrains.compose") version "1.1.0"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0" apply false
     id("org.jetbrains.changelog") version "1.3.0"
     id("nebula.maven-publish") version "18.0.0"
@@ -36,7 +36,7 @@ tasks.getByName<Test>("test") {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
-    kotlinOptions.jvmTarget = "16"
+    kotlinOptions.jvmTarget = "11"
     kotlinOptions.freeCompilerArgs += listOf(
         "-P",
         "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
