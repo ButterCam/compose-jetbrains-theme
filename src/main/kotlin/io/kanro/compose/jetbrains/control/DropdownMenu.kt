@@ -124,7 +124,7 @@ object DropdownMenuItemHoverIndication : Indication {
     override fun rememberUpdatedInstance(interactionSource: InteractionSource): IndicationInstance {
         val isHover = interactionSource.collectIsHoveredAsState()
         val hoverColor = JBTheme.selectionColors.active
-        return remember(interactionSource) {
+        return remember(JBTheme.selectionColors, interactionSource) {
             HoverIndicationInstance(
                 isHover,
                 hoverColor,

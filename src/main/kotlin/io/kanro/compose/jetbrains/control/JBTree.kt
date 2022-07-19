@@ -8,12 +8,10 @@ import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
@@ -23,8 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import io.kanro.compose.jetbrains.JBIconTheme
 import io.kanro.compose.jetbrains.JBTheme
+import io.kanro.compose.jetbrains.JBThemeStyle
 import io.kanro.compose.jetbrains.LocalIconTheme
 import io.kanro.compose.jetbrains.SelectionScope
 import io.kanro.compose.jetbrains.icons.JBIcons
@@ -65,7 +63,7 @@ fun JBTreeItem(
             }
         ) {
             Row {
-                val isDarkTheme = LocalIconTheme.current == JBIconTheme.DARK
+                val isDarkTheme = LocalIconTheme.current == JBThemeStyle.DARK
                 Icon(
                     imageVector = if(isDarkTheme) JBIcons.Actions.ArrowExpandDark else JBIcons.Actions.ArrowExpand,
                     modifier = Modifier.size(16.dp).clickable(

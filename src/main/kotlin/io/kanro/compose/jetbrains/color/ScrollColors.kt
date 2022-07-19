@@ -2,10 +2,10 @@ package io.kanro.compose.jetbrains.color
 
 import androidx.compose.foundation.ScrollbarStyle
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
@@ -44,4 +44,4 @@ fun darkScrollColors(): ScrollColors {
     )
 }
 
-val LocalScrollColors = staticCompositionLocalOf { lightScrollColors() }
+val LocalScrollColors = compositionLocalOf { lightScrollColors() }

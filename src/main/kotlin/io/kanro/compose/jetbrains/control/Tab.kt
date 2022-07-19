@@ -43,7 +43,7 @@ object TabIndication : Indication {
         val isHover = interactionSource.collectIsHoveredAsState()
         val hoverColor = JBTheme.tabColors.hover
 
-        return remember(interactionSource) {
+        return remember(JBTheme.tabColors, interactionSource) {
             TabIndicationInstance(
                 isHover,
                 hoverColor,

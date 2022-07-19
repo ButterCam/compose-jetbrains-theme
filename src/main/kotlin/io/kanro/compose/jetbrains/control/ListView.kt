@@ -30,7 +30,7 @@ object ListItemHoverIndication : Indication {
     override fun rememberUpdatedInstance(interactionSource: InteractionSource): IndicationInstance {
         val isHover = interactionSource.collectIsHoveredAsState()
         val hoverColor = JBTheme.selectionColors.hover
-        return remember(interactionSource) {
+        return remember(JBTheme.selectionColors, interactionSource) {
             HoverIndicationInstance(
                 isHover,
                 hoverColor,

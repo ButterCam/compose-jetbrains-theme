@@ -1,9 +1,9 @@
 package io.kanro.compose.jetbrains.color
 
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 class IconColors(
@@ -31,6 +31,11 @@ fun lightIconColors(): IconColors {
     )
 }
 
-// TODO
+fun darkIconColors(): IconColors {
+    return IconColors(
+        Color(0xFFFEFEFE),
+        Color(0xFFABABAB),
+    )
+}
 
-val LocalIconColors = staticCompositionLocalOf { lightIconColors() }
+val LocalIconColors = compositionLocalOf { lightIconColors() }

@@ -33,7 +33,7 @@ import androidx.compose.ui.graphics.addOutline
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import io.kanro.compose.jetbrains.JBIconTheme
+import io.kanro.compose.jetbrains.JBThemeStyle
 import io.kanro.compose.jetbrains.LocalIconTheme
 import io.kanro.compose.jetbrains.icons.JBIcons
 import io.kanro.compose.jetbrains.icons.jbicons.General
@@ -82,7 +82,7 @@ fun <T> DropdownList(
             )
             Spacer(Modifier.width(1.dp).fillMaxHeight())
             Box(Modifier.size(22.dp), contentAlignment = Alignment.Center) {
-                val isDarkTheme = LocalIconTheme.current == JBIconTheme.DARK
+                val isDarkTheme = LocalIconTheme.current == JBThemeStyle.DARK
                 Icon(
                     imageVector = if(isDarkTheme)
                         JBIcons.General.ButtonDropTriangleDark

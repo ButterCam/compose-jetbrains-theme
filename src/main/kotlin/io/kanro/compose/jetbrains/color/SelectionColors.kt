@@ -1,9 +1,9 @@
 package io.kanro.compose.jetbrains.color
 
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 class SelectionColors(
@@ -55,4 +55,4 @@ fun darkSelectionColors(): SelectionColors {
     )
 }
 
-val LocalSelectionColors = staticCompositionLocalOf { lightSelectionColors() }
+val LocalSelectionColors = compositionLocalOf { lightSelectionColors() }

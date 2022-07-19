@@ -4,9 +4,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalScrollbarStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ProvidedValue
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import io.kanro.compose.jetbrains.color.ButtonColors
 import io.kanro.compose.jetbrains.color.CheckBoxColors
@@ -32,6 +32,30 @@ import io.kanro.compose.jetbrains.color.SelectionColors
 import io.kanro.compose.jetbrains.color.TabColors
 import io.kanro.compose.jetbrains.color.TextColors
 import io.kanro.compose.jetbrains.color.ToolBarColors
+import io.kanro.compose.jetbrains.color.darkButtonColors
+import io.kanro.compose.jetbrains.color.darkCheckBoxColors
+import io.kanro.compose.jetbrains.color.darkFieldColors
+import io.kanro.compose.jetbrains.color.darkFocusColors
+import io.kanro.compose.jetbrains.color.darkIconColors
+import io.kanro.compose.jetbrains.color.darkPanelColors
+import io.kanro.compose.jetbrains.color.darkProgressColors
+import io.kanro.compose.jetbrains.color.darkScrollColors
+import io.kanro.compose.jetbrains.color.darkSelectionColors
+import io.kanro.compose.jetbrains.color.darkTabColors
+import io.kanro.compose.jetbrains.color.darkTextColors
+import io.kanro.compose.jetbrains.color.darkToolBarColors
+import io.kanro.compose.jetbrains.color.lightButtonColors
+import io.kanro.compose.jetbrains.color.lightCheckBoxColors
+import io.kanro.compose.jetbrains.color.lightFieldColors
+import io.kanro.compose.jetbrains.color.lightFocusColors
+import io.kanro.compose.jetbrains.color.lightIconColors
+import io.kanro.compose.jetbrains.color.lightPanelColors
+import io.kanro.compose.jetbrains.color.lightProgressColors
+import io.kanro.compose.jetbrains.color.lightScrollColors
+import io.kanro.compose.jetbrains.color.lightSelectionColors
+import io.kanro.compose.jetbrains.color.lightTabColors
+import io.kanro.compose.jetbrains.color.lightTextColors
+import io.kanro.compose.jetbrains.color.lightToolBarColors
 import io.kanro.compose.jetbrains.control.JBContextMenuRepresentation
 import io.kanro.compose.jetbrains.control.LocalContentAlpha
 import io.kanro.compose.jetbrains.control.LocalContentColor
@@ -39,160 +63,196 @@ import io.kanro.compose.jetbrains.control.LocalContextMenuRepresentation
 import io.kanro.compose.jetbrains.control.ProvideTextStyle
 
 @Composable
+fun JBTheme(style: JBThemeStyle, content: @Composable () -> Unit) {
+    JBTheme(
+        style = style,
+        buttonColors = if (style == JBThemeStyle.LIGHT) lightButtonColors() else darkButtonColors(),
+        fieldColors = if (style == JBThemeStyle.LIGHT) lightFieldColors() else darkFieldColors(),
+        focusColors = if (style == JBThemeStyle.LIGHT) lightFocusColors() else darkFocusColors(),
+        panelColors = if (style == JBThemeStyle.LIGHT) lightPanelColors() else darkPanelColors(),
+        textColors = if (style == JBThemeStyle.LIGHT) lightTextColors() else darkTextColors(),
+        toolBarColors = if (style == JBThemeStyle.LIGHT) lightToolBarColors() else darkToolBarColors(),
+        progressColors = if (style == JBThemeStyle.LIGHT) lightProgressColors() else darkProgressColors(),
+        scrollColors = if (style == JBThemeStyle.LIGHT) lightScrollColors() else darkScrollColors(),
+        tabColors = if (style == JBThemeStyle.LIGHT) lightTabColors() else darkTabColors(),
+        selectionColors = if (style == JBThemeStyle.LIGHT) lightSelectionColors() else darkSelectionColors(),
+        checkBoxColors = if (style == JBThemeStyle.LIGHT) lightCheckBoxColors() else darkCheckBoxColors(),
+        iconColors = if (style == JBThemeStyle.LIGHT) lightIconColors() else darkIconColors(),
+        typography = JBTypography(),
+        iconTheme = if (style == JBThemeStyle.LIGHT) JBThemeStyle.LIGHT else JBThemeStyle.DARK,
+        selectionScope = if (style == JBThemeStyle.LIGHT) lightSelectionScope else darkSelectionScope,
+        content = content
+    )
+}
+
+@Composable
+fun JBDraculaTheme(content: @Composable () -> Unit) {
+    JBTheme(
+        style = JBThemeStyle.DARK,
+        buttonColors = darkButtonColors(),
+        fieldColors = darkFieldColors(),
+        focusColors = darkFocusColors(),
+        panelColors = darkPanelColors(),
+        textColors = darkTextColors(),
+        toolBarColors = darkToolBarColors(),
+        progressColors = darkProgressColors(),
+        scrollColors = darkScrollColors(),
+        tabColors = darkTabColors(),
+        selectionColors = darkSelectionColors(),
+        checkBoxColors = darkCheckBoxColors(),
+        iconColors = darkIconColors(),
+        typography = JBTypography(),
+        iconTheme = JBThemeStyle.DARK,
+        selectionScope = darkSelectionScope,
+        content = content
+    )
+}
+
+@Composable
+fun JBLightTheme(content: @Composable () -> Unit) {
+    JBTheme(content = content)
+}
+
+@Composable
 fun JBTheme(
-    buttonColors: ButtonColors = JBTheme.buttonColors,
-    fieldColors: FieldColors = JBTheme.fieldColors,
-    focusColors: FocusColors = JBTheme.focusColors,
-    panelColors: PanelColors = JBTheme.panelColors,
-    textColors: TextColors = JBTheme.textColors,
-    toolBarColors: ToolBarColors = JBTheme.toolBarColors,
-    progressColors: ProgressColors = JBTheme.progressColors,
-    scrollColors: ScrollColors = JBTheme.scrollColors,
-    tabColors: TabColors = JBTheme.tabColors,
-    selectionColors: SelectionColors = JBTheme.selectionColors,
-    checkBoxColors: CheckBoxColors = JBTheme.checkBoxColors,
-    iconColors: IconColors = JBTheme.iconColors,
-    typography: JBTypography = JBTheme.typography,
-    iconTheme: JBIconTheme = JBTheme.iconTheme,
-    selectionScope: @Composable (@Composable () -> Unit) -> Unit = LocalSelectionScope.current,
+    style: JBThemeStyle = JBThemeStyle.LIGHT,
+    buttonColors: ButtonColors = lightButtonColors(),
+    fieldColors: FieldColors = lightFieldColors(),
+    focusColors: FocusColors = lightFocusColors(),
+    panelColors: PanelColors = lightPanelColors(),
+    textColors: TextColors = lightTextColors(),
+    toolBarColors: ToolBarColors = lightToolBarColors(),
+    progressColors: ProgressColors = lightProgressColors(),
+    scrollColors: ScrollColors = lightScrollColors(),
+    tabColors: TabColors = lightTabColors(),
+    selectionColors: SelectionColors = lightSelectionColors(),
+    checkBoxColors: CheckBoxColors = lightCheckBoxColors(),
+    iconColors: IconColors = lightIconColors(),
+    typography: JBTypography = JBTypography(),
+    iconTheme: JBThemeStyle = JBThemeStyle.LIGHT,
+    selectionScope: @Composable () -> Array<ProvidedValue<out Any>> = lightSelectionScope,
     content: @Composable () -> Unit
 ) {
-    val rememberedButtonColors = remember { buttonColors.copy() }
-    val rememberedFieldColors = remember { fieldColors.copy() }
-    val rememberedFocusColors = remember { focusColors.copy() }
-    val rememberedPanelColors = remember { panelColors.copy() }
-    val rememberedTextColors = remember { textColors.copy() }
-    val rememberedToolBarColors = remember { toolBarColors.copy() }
-    val rememberedProgressColors = remember { progressColors.copy() }
-    val rememberedScrollColors = remember { scrollColors.copy() }
-    val rememberedTabColors = remember { tabColors.copy() }
-    val rememberedSelectionColors = remember { selectionColors.copy() }
-    val rememberedCheckBoxColors = remember { checkBoxColors.copy() }
-    val rememberedIconColors = remember { iconColors.copy() }
     CompositionLocalProvider(
-        LocalButtonColors provides rememberedButtonColors,
-        LocalFieldColors provides rememberedFieldColors,
-        LocalFocusColors provides rememberedFocusColors,
-        LocalPanelColors provides rememberedPanelColors,
-        LocalTextColors provides rememberedTextColors,
-        LocalToolBarColors provides rememberedToolBarColors,
-        LocalProgressColors provides rememberedProgressColors,
-        LocalScrollColors provides rememberedScrollColors,
-        LocalTabColors provides rememberedTabColors,
-        LocalSelectionColors provides rememberedSelectionColors,
-        LocalCheckBoxColors provides rememberedCheckBoxColors,
-        LocalIconColors provides rememberedIconColors,
+        LocalThemeStyle provides style,
+        LocalButtonColors provides buttonColors,
+        LocalFieldColors provides fieldColors,
+        LocalFocusColors provides focusColors,
+        LocalPanelColors provides panelColors,
+        LocalTextColors provides textColors,
+        LocalToolBarColors provides toolBarColors,
+        LocalProgressColors provides progressColors,
+        LocalScrollColors provides scrollColors,
+        LocalTabColors provides tabColors,
+        LocalSelectionColors provides selectionColors,
+        LocalCheckBoxColors provides checkBoxColors,
+        LocalIconColors provides iconColors,
         LocalTypography provides typography,
         LocalIconTheme provides iconTheme,
+        LocalContentColor provides textColors.default,
         LocalSelectionScope provides selectionScope,
-        LocalScrollbarStyle provides rememberedScrollColors.style()
+        LocalScrollbarStyle provides scrollColors.style()
     ) {
         ProvideTextStyle(value = typography.default, content = content)
     }
 }
 
 object JBTheme {
+    val style: JBThemeStyle
+        @Composable @ReadOnlyComposable get() = LocalThemeStyle.current
+
     val buttonColors: ButtonColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalButtonColors.current
+        @Composable @ReadOnlyComposable get() = LocalButtonColors.current
 
     val fieldColors: FieldColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalFieldColors.current
+        @Composable @ReadOnlyComposable get() = LocalFieldColors.current
 
     val focusColors: FocusColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalFocusColors.current
+        @Composable @ReadOnlyComposable get() = LocalFocusColors.current
 
     val panelColors: PanelColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalPanelColors.current
+        @Composable @ReadOnlyComposable get() = LocalPanelColors.current
 
     val textColors: TextColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalTextColors.current
+        @Composable @ReadOnlyComposable get() = LocalTextColors.current
 
     val toolBarColors: ToolBarColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalToolBarColors.current
+        @Composable @ReadOnlyComposable get() = LocalToolBarColors.current
 
     val progressColors: ProgressColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalProgressColors.current
+        @Composable @ReadOnlyComposable get() = LocalProgressColors.current
 
     val scrollColors: ScrollColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalScrollColors.current
+        @Composable @ReadOnlyComposable get() = LocalScrollColors.current
 
     val tabColors: TabColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalTabColors.current
+        @Composable @ReadOnlyComposable get() = LocalTabColors.current
 
     val selectionColors: SelectionColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalSelectionColors.current
+        @Composable @ReadOnlyComposable get() = LocalSelectionColors.current
 
     val checkBoxColors: CheckBoxColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalCheckBoxColors.current
+        @Composable @ReadOnlyComposable get() = LocalCheckBoxColors.current
 
     val iconColors: IconColors
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalIconColors.current
+        @Composable @ReadOnlyComposable get() = LocalIconColors.current
 
     val typography: JBTypography
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalTypography.current
+        @Composable @ReadOnlyComposable get() = LocalTypography.current
 
-    val iconTheme: JBIconTheme
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalIconTheme.current
+    val iconTheme: JBThemeStyle
+        @Composable @ReadOnlyComposable get() = LocalIconTheme.current
 }
 
-enum class JBIconTheme {
+enum class JBThemeStyle {
     LIGHT, DARK
 }
 
-val LocalIconTheme = compositionLocalOf { JBIconTheme.LIGHT }
+val LocalThemeStyle = compositionLocalOf { JBThemeStyle.LIGHT }
+
+val LocalIconTheme = compositionLocalOf { JBThemeStyle.LIGHT }
+
+val LocalSelectionScope = compositionLocalOf<@Composable () -> Array<ProvidedValue<out Any>>> {
+    lightSelectionScope
+}
+
+val emptySelectionScope = emptyArray<ProvidedValue<out Any>>()
+
 
 @OptIn(ExperimentalFoundationApi::class)
-val LocalSelectionScope = compositionLocalOf<@Composable (@Composable () -> Unit) -> Unit> {
-    {
-        CompositionLocalProvider(
-            LocalIconTheme provides JBIconTheme.DARK,
-            LocalTextColors provides JBTheme.textColors.copy(
-                infoInput = Color.White
-            ),
-            LocalContentColor provides Color.White,
-            LocalContentAlpha provides 1.0f,
-            LocalContextMenuRepresentation provides JBContextMenuRepresentation(
-                JBTheme.panelColors.bgContent,
-                JBTheme.panelColors.border
-            ),
-            content = it
+val lightSelectionScope: @Composable () -> Array<ProvidedValue<out Any>> = {
+    arrayOf(
+        LocalIconTheme provides JBThemeStyle.DARK,
+        LocalTextColors provides JBTheme.textColors.copy(
+            infoInput = Color.White
+        ),
+        LocalContentColor provides Color.White,
+        LocalContentAlpha provides 1.0f,
+        LocalContextMenuRepresentation provides JBContextMenuRepresentation(
+            JBTheme.panelColors.bgContent, JBTheme.panelColors.border
         )
-    }
+    )
+}
+
+
+@OptIn(ExperimentalFoundationApi::class)
+val darkSelectionScope: @Composable () -> Array<ProvidedValue<out Any>> = {
+    arrayOf(
+        LocalIconTheme provides JBThemeStyle.DARK,
+        LocalTextColors provides JBTheme.textColors.copy(
+            infoInput = Color.White
+        ),
+        LocalContentColor provides Color.White,
+        LocalContentAlpha provides 1.0f,
+        LocalContextMenuRepresentation provides JBContextMenuRepresentation(
+            JBTheme.panelColors.bgContent, JBTheme.panelColors.border
+        )
+    )
 }
 
 @Composable
 fun SelectionScope(selected: Boolean, block: @Composable () -> Unit) {
-    if (selected) {
-        LocalSelectionScope.current(block)
-    } else {
+    CompositionLocalProvider(* if (selected) LocalSelectionScope.current() else emptySelectionScope) {
         block()
     }
 }

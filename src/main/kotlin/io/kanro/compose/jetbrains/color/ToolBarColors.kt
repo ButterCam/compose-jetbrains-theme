@@ -5,11 +5,11 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 class ToolBarColors(
@@ -58,4 +58,4 @@ fun darkToolBarColors(): ToolBarColors {
     )
 }
 
-val LocalToolBarColors = staticCompositionLocalOf { lightToolBarColors() }
+val LocalToolBarColors = compositionLocalOf { lightToolBarColors() }

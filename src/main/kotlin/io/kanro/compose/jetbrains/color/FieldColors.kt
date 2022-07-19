@@ -6,11 +6,11 @@ import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import io.kanro.compose.jetbrains.JBTheme
 
@@ -105,4 +105,4 @@ fun darkFieldColors(): FieldColors {
     )
 }
 
-val LocalFieldColors = staticCompositionLocalOf { lightFieldColors() }
+val LocalFieldColors = compositionLocalOf { lightFieldColors() }

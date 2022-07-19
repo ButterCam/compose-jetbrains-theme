@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "1.6.10"
-    id("org.jetbrains.compose") version "1.1.0"
+    id("org.jetbrains.compose") version "1.1.1"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0" apply false
     id("org.jetbrains.changelog") version "1.3.0"
     id("nebula.maven-publish") version "18.0.0"
@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.bybutter.compose"
-version = "1.0.2"
+version = "1.1.0"
 description = "JetBrains UI Kit for Compose Desktop"
 
 repositories {
