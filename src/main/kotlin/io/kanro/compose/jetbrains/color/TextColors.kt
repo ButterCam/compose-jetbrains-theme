@@ -52,4 +52,17 @@ fun lightTextColors(): TextColors {
     )
 }
 
+fun darkTextColors(): TextColors {
+    return TextColors(
+        Color(0xFFBBBBBB),
+        Color(0xFF777777),
+        Color(0xFFFEFEFE),
+        Color(0xFF589DF6),
+        Color(0xFF8C8C8C),
+        Color(0xFF787878),
+        Color(0xFFFF5261),
+        Color(0xFF50A661),
+    )
+}
+
 val LocalTextColors = staticCompositionLocalOf { lightTextColors() }

@@ -28,4 +28,11 @@ fun lightProgressColors(): ProgressColors {
     )
 }
 
+fun darkProgressColors(): ProgressColors {
+    return ProgressColors(
+        Color(0xFFA0A0A0),
+        Color(0xFF555555),
+    )
+}
+
 val LocalProgressColors = staticCompositionLocalOf { lightProgressColors() }

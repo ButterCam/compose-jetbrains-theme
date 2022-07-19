@@ -56,4 +56,16 @@ fun lightCheckBoxColors(): CheckBoxColors {
     )
 }
 
+fun darkCheckBoxColors(): CheckBoxColors {
+    return CheckBoxColors(
+        Color(0xFF43494A),
+        Color(0xFF43494A),
+        Color(0xFF3C3F41),
+        Color(0xFF6B6B6B),
+        Color(0xFF4C708C),
+        Color(0xFF43698E),
+        Color(0xFF545556),
+    )
+}
+
 val LocalCheckBoxColors = staticCompositionLocalOf { lightCheckBoxColors() }

@@ -44,4 +44,15 @@ fun lightSelectionColors(): SelectionColors {
     )
 }
 
+fun darkSelectionColors(): SelectionColors {
+    return SelectionColors(
+        Color(0xFF2F65CA),
+        Color(0xFF0D293E),
+        Color(0xFF464A4D),
+        Color(0xFF464A4D),
+        Color(0xFF35383B),
+        Color(0xFF113A5C),
+    )
+}
+
 val LocalSelectionColors = staticCompositionLocalOf { lightSelectionColors() }

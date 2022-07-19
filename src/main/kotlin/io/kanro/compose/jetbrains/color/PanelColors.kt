@@ -32,4 +32,12 @@ fun lightPanelColors(): PanelColors {
     )
 }
 
+fun darkPanelColors(): PanelColors {
+    return PanelColors(
+        Color(0xFF323232),
+        Color(0xFF3C3F41),
+        Color(0xFF3C3F41),
+    )
+}
+
 val LocalPanelColors = staticCompositionLocalOf { lightPanelColors() }
