@@ -21,21 +21,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import io.kanro.compose.jetbrains.LocalIconTheme
-import io.kanro.compose.jetbrains.res.themedSvgResource
-
-@Composable
-fun Icon(
-    resource: String,
-    contentDescription: String? = null,
-    modifier: Modifier = Modifier,
-    colorFilter: ColorFilter? = null
-) {
-    Icon(
-        themedSvgResource(resource, LocalIconTheme.current), contentDescription, modifier,
-        colorFilter = colorFilter,
-    )
-}
 
 @Composable
 fun Icon(
