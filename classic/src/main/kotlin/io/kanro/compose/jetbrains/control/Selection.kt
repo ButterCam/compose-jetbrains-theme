@@ -37,7 +37,6 @@ val lightSelectionScope: @Composable () -> Array<ProvidedValue<out Any>> = {
     )
 }
 
-
 val darkSelectionScope: @Composable () -> Array<ProvidedValue<out Any>> = {
     arrayOf(
         LocalIconTheme provides JBThemeStyle.DARK,
@@ -84,7 +83,8 @@ fun SelectionRow(
                     drawRect(selectedColor, size = size)
                 }
                 drawContent()
-            }, horizontalArrangement = horizontalArrangement, verticalAlignment = verticalAlignment, content = content
+            },
+            horizontalArrangement = horizontalArrangement, verticalAlignment = verticalAlignment, content = content
         )
     }
 }

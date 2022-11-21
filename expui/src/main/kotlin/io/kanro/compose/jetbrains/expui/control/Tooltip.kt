@@ -58,7 +58,8 @@ fun Tooltip(
             colors.provideArea {
                 Box(
                     modifier = Modifier.shadow(8.dp).areaBackground()
-                        .border(1.dp, LocalAreaColors.current.startBorderColor), contentAlignment = Alignment.Center
+                        .border(1.dp, LocalAreaColors.current.startBorderColor),
+                    contentAlignment = Alignment.Center
                 ) {
                     Box(
                         modifier = Modifier.padding(16.dp),

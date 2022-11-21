@@ -4,7 +4,6 @@ import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -37,6 +36,7 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.TransformOrigin
@@ -331,7 +331,7 @@ internal fun DropdownMenuItemContent(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit,
 ) {
-    val focused = interactionSource.collectIsFocusedAsState()
+    val focused = remember { mutableStateOf(false) }
     val focusedColors = LocalFocusAreaColors.current
     Row(
         modifier = modifier.drawWithCache {
@@ -341,6 +341,8 @@ internal fun DropdownMenuItemContent(
                     drawOutline(outline, focusedColors.startBackground)
                 }
             }
+        }.onFocusEvent {
+            focused.value = it.isFocused
         }.clickable(
             enabled = enabled,
             onClick = onClick,

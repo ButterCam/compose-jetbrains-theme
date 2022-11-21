@@ -43,9 +43,9 @@ fun Modifier.background(areaColors: AreaColors, shape: Shape = RectangleShape): 
         return this
     }
     if (areaColors.endBackground.isUnspecified || areaColors.startBackground == areaColors.endBackground) {
-        return this.background(areaColors.startBackground)
+        return this.background(areaColors.startBackground, shape)
     }
-    return this.background(Brush.linearGradient(listOf(areaColors.startBackground, areaColors.endBackground)))
+    return this.background(Brush.linearGradient(listOf(areaColors.startBackground, areaColors.endBackground)), shape)
 }
 
 @Composable

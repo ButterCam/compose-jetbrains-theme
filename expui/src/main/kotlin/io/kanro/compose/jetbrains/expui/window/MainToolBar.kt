@@ -1,8 +1,19 @@
 package io.kanro.compose.jetbrains.expui.window
 
+import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ParentDataModifier
+import androidx.compose.ui.platform.InspectorInfo
+import androidx.compose.ui.platform.InspectorValueInfo
+import androidx.compose.ui.platform.NoInspectorInfo
+import androidx.compose.ui.platform.debugInspectorInfo
+import androidx.compose.ui.unit.Density
 import io.kanro.compose.jetbrains.expui.control.ActionButtonColors
 import io.kanro.compose.jetbrains.expui.control.LocalActionButtonColors
 import io.kanro.compose.jetbrains.expui.style.AreaColors
@@ -36,4 +47,33 @@ data class MainToolBarColors(
 
 val LocalMainToolBarColors = compositionLocalOf {
     LightTheme.MainToolBarColors
+}
+
+@LayoutScopeMarker
+@Immutable
+interface MainToolBarScope {
+    @Stable
+    fun Modifier.horizontalAlignment(alignment: Alignment.Horizontal): Modifier
+}
+
+internal object MainToolBarScopeInstance : MainToolBarScope {
+    override fun Modifier.horizontalAlignment(horizontalAlignment: Alignment.Horizontal): Modifier {
+        return this.then(
+            MainToolBarChildData(
+                horizontalAlignment = horizontalAlignment,
+                inspectorInfo = debugInspectorInfo {
+                    name = "horizontalAlignment"
+                    value = horizontalAlignment
+                })
+        )
+    }
+}
+
+internal class MainToolBarChildData(
+    var horizontalAlignment: Alignment.Horizontal,
+    inspectorInfo: InspectorInfo.() -> Unit = NoInspectorInfo,
+) : ParentDataModifier, InspectorValueInfo(inspectorInfo) {
+    override fun Density.modifyParentData(parentData: Any?): Any {
+        return this@MainToolBarChildData
+    }
 }

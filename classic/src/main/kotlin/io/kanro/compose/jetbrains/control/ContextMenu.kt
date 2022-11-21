@@ -39,10 +39,10 @@ private val LocalContextMenuData = staticCompositionLocalOf<ContextMenuData?> {
     null
 }
 
-
 @Composable
 internal fun ContextMenuDataProvider(
-    data: ContextMenuData, content: @Composable () -> Unit,
+    data: ContextMenuData,
+    content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
         LocalContextMenuData provides data
@@ -60,7 +60,8 @@ private suspend fun AwaitPointerEventScope.awaitEventFirstDown(): PointerEvent {
 }
 
 private fun Modifier.contextMenuDetector(
-    state: ContextMenuState, enabled: Boolean = true,
+    state: ContextMenuState,
+    enabled: Boolean = true,
 ): Modifier {
     return if (enabled && state.status == ContextMenuState.Status.Closed) {
         this.pointerInput(state) {
@@ -102,7 +103,8 @@ fun ContextMenuArea(
 
 @OptIn(ExperimentalComposeUiApi::class)
 class JBContextMenuRepresentation(
-    private val backgroundColor: Color, private val borderColor: Color,
+    private val backgroundColor: Color,
+    private val borderColor: Color,
 ) : ContextMenuRepresentation {
 
     @Composable

@@ -17,19 +17,26 @@ import io.kanro.compose.jetbrains.expui.control.JbContextMenuRepresentation
 import io.kanro.compose.jetbrains.expui.control.LinkColors
 import io.kanro.compose.jetbrains.expui.control.LocalActionButtonColors
 import io.kanro.compose.jetbrains.expui.control.LocalCheckBoxColors
+import io.kanro.compose.jetbrains.expui.control.LocalCloseableTabColors
 import io.kanro.compose.jetbrains.expui.control.LocalComboBoxColors
 import io.kanro.compose.jetbrains.expui.control.LocalContextMenuColors
 import io.kanro.compose.jetbrains.expui.control.LocalDropdownMenuColors
 import io.kanro.compose.jetbrains.expui.control.LocalLinkColors
 import io.kanro.compose.jetbrains.expui.control.LocalOutlineButtonColors
 import io.kanro.compose.jetbrains.expui.control.LocalPrimaryButtonColors
+import io.kanro.compose.jetbrains.expui.control.LocalProgressBarColors
 import io.kanro.compose.jetbrains.expui.control.LocalRadioButtonColors
 import io.kanro.compose.jetbrains.expui.control.LocalSegmentedButtonColors
+import io.kanro.compose.jetbrains.expui.control.LocalTabColors
 import io.kanro.compose.jetbrains.expui.control.LocalTextFieldColors
+import io.kanro.compose.jetbrains.expui.control.LocalToolBarActionButtonColors
 import io.kanro.compose.jetbrains.expui.control.LocalToolTipColors
+import io.kanro.compose.jetbrains.expui.control.ProgressBarColors
 import io.kanro.compose.jetbrains.expui.control.RadioButtonColors
 import io.kanro.compose.jetbrains.expui.control.SegmentedButtonColors
+import io.kanro.compose.jetbrains.expui.control.TabColors
 import io.kanro.compose.jetbrains.expui.control.TextFieldColors
+import io.kanro.compose.jetbrains.expui.control.ToolBarActionButtonColors
 import io.kanro.compose.jetbrains.expui.control.ToolTipColors
 import io.kanro.compose.jetbrains.expui.style.AreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalAreaColors
@@ -545,6 +552,92 @@ object LightTheme : Theme {
         ),
     )
 
+    val ToolBarActionButtonColors = ToolBarActionButtonColors(
+        normalAreaColors = NormalAreaColors.copy(
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), hoverAreaColors = HoverAreaColors.copy(
+            startBackground = Grey10,
+            endBackground = Grey10,
+        ), pressedAreaColors = PressedAreaColors.copy(
+            startBackground = Grey10,
+            endBackground = Grey10,
+        ), disabledAreaColors = DisabledAreaColors.copy(
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), inactiveAreaColors = NormalAreaColors.copy(
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), selectionAreaColors = SelectionAreaColors.copy(
+            foreground = Grey13,
+            startBackground = Blue6,
+            endBackground = Blue6,
+        ), inactiveSelectionAreaColors = SelectionInactiveAreaColors.copy(
+            startBackground = Grey10,
+            endBackground = Grey10,
+        )
+    )
+
+    val ProgressBarColors = ProgressBarColors(
+        normalAreaColors = NormalAreaColors.copy(
+            foreground = Blue6,
+            startBackground = Grey10,
+            endBackground = Grey10,
+        ),
+        indeterminateAreaColors = NormalAreaColors.copy(
+            foreground = Blue6,
+            startBackground = Blue6,
+            endBackground = Blue11,
+        ),
+    )
+
+    val TabColors = TabColors(
+        normalAreaColors = NormalAreaColors.copy(
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), hoverAreaColors = HoverAreaColors.copy(
+            startBackground = Grey11,
+            endBackground = Grey11,
+        ), pressedAreaColors = PressedAreaColors.copy(
+            startBackground = Grey11,
+            endBackground = Grey11,
+        ), inactiveAreaColors = NormalAreaColors.copy(
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), selectionAreaColors = SelectionAreaColors.copy(
+            focusColor = Blue8,
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), inactiveSelectionAreaColors = SelectionInactiveAreaColors.copy(
+            focusColor = Grey8,
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        )
+    )
+
+    val CloseableTabColors = TabColors(
+        normalAreaColors = NormalAreaColors.copy(
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), hoverAreaColors = HoverAreaColors.copy(
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), pressedAreaColors = PressedAreaColors.copy(
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), inactiveAreaColors = NormalAreaColors.copy(
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), selectionAreaColors = SelectionAreaColors.copy(
+            focusColor = Blue8,
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        ), inactiveSelectionAreaColors = SelectionInactiveAreaColors.copy(
+            focusColor = Grey8,
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+        )
+    )
 
     val DefaultTextStyle = TextStyle(
         fontFamily = Fonts.Inter, fontSize = 13.sp, fontWeight = FontWeight.Normal, color = Color.Unspecified
@@ -579,6 +672,10 @@ object LightTheme : Theme {
             LocalDropdownMenuColors provides DropdownMenuColors,
             LocalComboBoxColors provides ComboBoxColors,
             LocalContextMenuColors provides ContextMenuColors,
+            LocalToolBarActionButtonColors provides ToolBarActionButtonColors,
+            LocalProgressBarColors provides ProgressBarColors,
+            LocalTabColors provides TabColors,
+            LocalCloseableTabColors provides CloseableTabColors,
             LocalContextMenuRepresentation provides JbContextMenuRepresentation(ContextMenuColors),
             LocalTextStyle provides DefaultTextStyle,
             content = content,

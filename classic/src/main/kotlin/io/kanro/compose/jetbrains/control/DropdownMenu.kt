@@ -38,7 +38,6 @@ import androidx.compose.ui.window.PopupPositionProvider
 import io.kanro.compose.jetbrains.JBTheme
 import io.kanro.compose.jetbrains.color.LocalPanelColors
 
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun DropdownMenu(
@@ -169,7 +168,7 @@ data class DropdownMenuPositionProvider(
         val toDisplayBottom = windowSize.height - popupContentSize.height - verticalMargin
         var y = sequenceOf(toBottom, toTop, toCenter, toDisplayBottom).firstOrNull {
             it >= verticalMargin &&
-                    it + popupContentSize.height <= windowSize.height - verticalMargin
+                it + popupContentSize.height <= windowSize.height - verticalMargin
         } ?: toTop
 
         // Desktop specific vertical position checking

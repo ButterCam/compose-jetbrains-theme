@@ -2,7 +2,6 @@ package io.kanro.compose.jetbrains.expui.window
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +32,6 @@ import io.kanro.compose.jetbrains.expui.theme.Theme
 import java.awt.event.ComponentEvent
 import java.awt.event.ComponentListener
 
-
 @Composable
 internal fun JBWindowOnMacOS(
     onCloseRequest: () -> Unit,
@@ -47,7 +45,7 @@ internal fun JBWindowOnMacOS(
     alwaysOnTop: Boolean = false,
     onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
     onKeyEvent: (KeyEvent) -> Boolean = { false },
-    mainToolBar: (@Composable BoxScope.(Boolean) -> Unit)?,
+    mainToolBar: (@Composable MainToolBarScope.() -> Unit)?,
     content: @Composable FrameWindowScope.() -> Unit,
 ) {
     Window(

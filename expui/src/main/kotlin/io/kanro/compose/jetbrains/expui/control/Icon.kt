@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.isSpecified
@@ -64,10 +64,12 @@ fun Icon(
     contentDescription: String? = null,
     modifier: Modifier = Modifier,
     colorFilter: ColorFilter? = null,
+    markerColor: Color = Color.Unspecified,
 ) {
     Icon(
         themedSvgResource(resource), contentDescription, modifier,
         colorFilter = colorFilter,
+        markerColor = markerColor,
     )
 }
 
@@ -77,6 +79,7 @@ fun Icon(
     contentDescription: String? = null,
     modifier: Modifier = Modifier,
     colorFilter: ColorFilter? = null,
+    markerColor: Color = Color.Unspecified,
 ) {
     val painter = remember(bitmap) { BitmapPainter(bitmap) }
     Icon(
@@ -84,6 +87,7 @@ fun Icon(
         contentDescription = contentDescription,
         modifier = modifier,
         colorFilter = colorFilter,
+        markerColor = markerColor,
     )
 }
 
@@ -93,12 +97,14 @@ fun Icon(
     contentDescription: String? = null,
     modifier: Modifier = Modifier,
     colorFilter: ColorFilter? = null,
+    markerColor: Color = Color.Unspecified,
 ) {
     Icon(
         painter = rememberVectorPainter(imageVector),
         contentDescription = contentDescription,
         modifier = modifier,
         colorFilter = colorFilter,
+        markerColor = markerColor,
     )
 }
 
@@ -108,6 +114,7 @@ fun Icon(
     contentDescription: String? = null,
     modifier: Modifier = Modifier,
     colorFilter: ColorFilter? = null,
+    markerColor: Color = Color.Unspecified,
 ) {
     val semantics = if (contentDescription != null) {
         Modifier.semantics {
@@ -126,8 +133,9 @@ fun Icon(
         }
     }
     Box(
-        modifier.toolingGraphicsLayer().defaultSizeFor(painter).paint(
-            painter, contentScale = ContentScale.None, colorFilter = filter
-        ).then(semantics)
+        modifier.toolingGraphicsLayer()
+            .defaultSizeFor(painter)
+            .paintWithMarker(painter, contentScale = ContentScale.None, colorFilter = filter, markerColor = markerColor)
+            .then(semantics)
     )
 }

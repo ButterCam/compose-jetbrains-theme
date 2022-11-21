@@ -2,16 +2,19 @@ package io.kanro.compose.jetbrains.expui.control
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -72,30 +75,58 @@ val LocalCheckBoxColors = compositionLocalOf<CheckBoxColors> {
 @Composable
 fun Checkbox(
     checked: Boolean,
-    onCheckedChange: ((Boolean) -> Unit)?,
+    onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     colors: CheckBoxColors = LocalCheckBoxColors.current,
 ) {
-    TriStateCheckbox(state = ToggleableState(checked), onClick = if (onCheckedChange != null) {
-        { onCheckedChange(!checked) }
-    } else null, interactionSource = interactionSource, enabled = enabled, modifier = modifier, colors = colors)
+    TriStateCheckbox(
+        state = ToggleableState(checked),
+        onClick = { onCheckedChange(!checked) },
+        interactionSource = interactionSource,
+        enabled = enabled,
+        modifier = modifier,
+        colors = colors
+    )
+}
+
+@Composable
+fun Checkbox(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    colors: CheckBoxColors = LocalCheckBoxColors.current,
+    content: @Composable () -> Unit,
+) {
+    TriStateCheckbox(
+        state = ToggleableState(checked),
+        onClick = { onCheckedChange(!checked) },
+        interactionSource = interactionSource,
+        enabled = enabled,
+        modifier = modifier,
+        colors = colors,
+        content = content
+    )
 }
 
 @Composable
 fun TriStateCheckbox(
     state: ToggleableState,
-    onClick: (() -> Unit)?,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     colors: CheckBoxColors = LocalCheckBoxColors.current,
 ) {
-    val isFocused = interactionSource.collectIsFocusedAsState()
+    val isFocused = remember { mutableStateOf(false) }
     colors.provideArea(enabled, isFocused.value, state != ToggleableState.Off) {
-        val toggleableModifier = if (onClick != null) {
-            Modifier.triStateToggleable(
+        CheckboxImpl(
+            isFocused = isFocused.value, value = state, modifier = Modifier.onFocusEvent {
+                isFocused.value = it.isFocused
+            }.triStateToggleable(
                 state = state,
                 onClick = onClick,
                 enabled = enabled,
@@ -103,13 +134,38 @@ fun TriStateCheckbox(
                 interactionSource = interactionSource,
                 indication = null
             )
-        } else {
-            Modifier
-        }
-
-        CheckboxImpl(
-            isFocused = isFocused.value, value = state, modifier = modifier.then(toggleableModifier)
         )
+    }
+}
+
+
+@Composable
+fun TriStateCheckbox(
+    state: ToggleableState,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    colors: CheckBoxColors = LocalCheckBoxColors.current,
+    content: @Composable () -> Unit,
+) {
+    val isFocused = remember { mutableStateOf(false) }
+    colors.provideArea(enabled, isFocused.value, state != ToggleableState.Off) {
+        Row(
+            modifier.onFocusEvent {
+                isFocused.value = it.isFocused
+            }.triStateToggleable(
+                state = state,
+                onClick = onClick,
+                enabled = enabled,
+                role = Role.Checkbox,
+                interactionSource = interactionSource,
+                indication = null
+            ), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            CheckboxImpl(isFocused = isFocused.value, value = state)
+            content()
+        }
     }
 }
 
@@ -173,7 +229,7 @@ private fun CheckmarkIndeterminate() = ImageVector.Builder(
 private fun CheckboxImpl(
     isFocused: Boolean,
     value: ToggleableState,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     val icon = when (value) {
         ToggleableState.On -> rememberVectorPainter(Checkmark())

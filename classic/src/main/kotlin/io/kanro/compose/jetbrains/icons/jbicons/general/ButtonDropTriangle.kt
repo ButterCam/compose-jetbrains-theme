@@ -16,18 +16,22 @@ internal val GeneralGroup.ButtonDropTriangle: ImageVector
         if (_buttonDropTriangle != null) {
             return _buttonDropTriangle!!
         }
-        _buttonDropTriangle = Builder(name = "ButtonDropTriangle", defaultWidth = 8.0.dp,
-                defaultHeight = 4.0.dp, viewportWidth = 8.0f, viewportHeight = 4.0f).apply {
-            path(fill = SolidColor(Color(0xFF6E6E6E)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = EvenOdd) {
+        _buttonDropTriangle = Builder(
+            name = "ButtonDropTriangle", defaultWidth = 8.0.dp,
+            defaultHeight = 4.0.dp, viewportWidth = 8.0f, viewportHeight = 4.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF6E6E6E)), stroke = null, strokeLineWidth = 0.0f,
+                strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                pathFillType = EvenOdd
+            ) {
                 moveTo(4.0f, 4.0f)
                 lineToRelative(4.0f, -4.0f)
                 lineToRelative(-8.0f, -0.0f)
                 close()
             }
         }
-        .build()
+            .build()
         return _buttonDropTriangle!!
     }
 

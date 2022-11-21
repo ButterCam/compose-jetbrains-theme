@@ -6,7 +6,6 @@ import androidx.compose.foundation.ContextMenuState
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,6 +37,7 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.input.InputMode
@@ -50,7 +50,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalInputModeManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
-import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.rememberCursorPositionProvider
 import io.kanro.compose.jetbrains.expui.style.AreaColors
 import io.kanro.compose.jetbrains.expui.style.AreaProvider
@@ -98,18 +97,10 @@ class JbContextMenuRepresentation(private val colors: ContextMenuColors) : Conte
             isOpen = isOpen,
             items = items,
             onDismissRequest = { state.status = ContextMenuState.Status.Closed },
-            popupPositionProvider = rememberCursorPositionProvider(),
             colors = colors,
         )
     }
 }
-
-class JbContextMenuItem(
-    label: String,
-    onClick: () -> Unit,
-) : ContextMenuItem(label, onClick)
-
-interface ContextMenuItemSplitter {}
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -117,7 +108,6 @@ fun ContextMenu(
     isOpen: Boolean,
     items: () -> List<ContextMenuItem>,
     onDismissRequest: () -> Unit,
-    popupPositionProvider: PopupPositionProvider = rememberCursorPositionProvider(),
     colors: ContextMenuColors = LocalContextMenuColors.current,
 ) {
     if (isOpen) {
@@ -126,7 +116,7 @@ fun ContextMenu(
         Popup(
             focusable = true,
             onDismissRequest = onDismissRequest,
-            popupPositionProvider = popupPositionProvider,
+            popupPositionProvider = rememberCursorPositionProvider(),
             onKeyEvent = {
                 if (it.type == KeyEventType.KeyDown) {
                     when (it.key.nativeKeyCode) {
@@ -195,7 +185,7 @@ private fun MenuItemContent(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit,
 ) {
-    val focused = interactionSource.collectIsFocusedAsState()
+    val focused = remember { mutableStateOf(false) }
     val focusedColors = LocalFocusAreaColors.current
     Row(
         modifier = Modifier.drawWithCache {
@@ -205,6 +195,8 @@ private fun MenuItemContent(
                     drawOutline(outline, focusedColors.startBackground)
                 }
             }
+        }.onFocusEvent {
+            focused.value = it.isFocused
         }.clickable(
             enabled = true,
             onClick = onClick,

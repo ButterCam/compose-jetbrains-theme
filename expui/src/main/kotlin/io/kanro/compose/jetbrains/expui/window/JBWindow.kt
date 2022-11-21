@@ -1,6 +1,5 @@
 package io.kanro.compose.jetbrains.expui.window
 
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.painter.Painter
@@ -31,7 +30,7 @@ fun JBWindow(
     alwaysOnTop: Boolean = false,
     onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
     onKeyEvent: (KeyEvent) -> Boolean = { false },
-    mainToolBar: (@Composable BoxScope.(Boolean) -> Unit)? = null,
+    mainToolBar: (@Composable MainToolBarScope.() -> Unit)? = null,
     content: @Composable FrameWindowScope.() -> Unit,
 ) {
     when (DesktopPlatform.Current) {

@@ -2,7 +2,6 @@ package io.kanro.compose.jetbrains.expui.control
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -78,7 +77,7 @@ fun <T> ComboBox(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     colors: ComboBoxColors = LocalComboBoxColors.current,
 ) {
-    val isFocused = interactionSource.collectIsFocusedAsState()
+    val isFocused = remember { mutableStateOf(false) }
     var menuOpened by remember { mutableStateOf(false) }
     colors.provideArea(enabled, isFocused.value) {
         val areaColors = LocalAreaColors.current
@@ -102,6 +101,8 @@ fun <T> ComboBox(
                             cornerRadius = CornerRadius(2.dp.toPx())
                         )
                     }
+                }.onFocusEvent {
+                    isFocused.value = it.isFocused
                 }.clickable(
                     interactionSource = interactionSource, indication = null, enabled = enabled, onClick = {
                         menuOpened = true
@@ -122,20 +123,22 @@ fun <T> ComboBox(
             DropdownMenu(menuOpened, { menuOpened = false }, modifier = menuModifier) {
                 items.forEach { item ->
                     val focusRequester = remember { FocusRequester() }
-                    DropdownMenuItem(onClick = {
-                        if (value != item) {
-                            onValueChange?.invoke(item)
+                    DropdownMenuItem(
+                        onClick = {
+                            if (value != item) {
+                                onValueChange?.invoke(item)
+                            }
+                            menuOpened = false
+                        },
+                        Modifier.focusRequester(focusRequester).onFocusEvent {
+                            if (it.isFocused && value != item) {
+                                onValueChange?.invoke(item)
+                            }
                         }
-                        menuOpened = false
-                    }, Modifier.focusRequester(focusRequester).onFocusEvent {
-                        if (it.isFocused && value != item) {
-                            onValueChange?.invoke(item)
-                        }
-                    }) {
+                    ) {
                         valueRender(item)
                     }
                     LaunchedEffect(menuOpened) {
-                        println("$item, $menuOpened, $value")
                         if (menuOpened && value == item) {
                             focusRequester.requestFocus()
                         }

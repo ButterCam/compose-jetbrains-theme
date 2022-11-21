@@ -54,13 +54,14 @@ fun <T> DropdownList(
     val focusRequester = remember { FocusRequester() }
     val expanded = remember { mutableStateOf(false) }
 
-    Box(modifier.border(1.dp, style.borderColor(enabled, false, interactionSource).value, shape).height(24.dp)
-        .background(style.backgroundColor(enabled, interactionSource).value).focusable(enabled, interactionSource)
-        .focusRequester(focusRequester)
-        .clickable(interactionSource = interactionSource, indication = null, enabled = enabled, onClick = {
-            expanded.value = true
-            focusRequester.requestFocus()
-        }).comboBoxIndicator(style.indicatorColor(false, interactionSource).value, shape, 2.dp)
+    Box(
+        modifier.border(1.dp, style.borderColor(enabled, false, interactionSource).value, shape).height(24.dp)
+            .background(style.backgroundColor(enabled, interactionSource).value).focusable(enabled, interactionSource)
+            .focusRequester(focusRequester)
+            .clickable(interactionSource = interactionSource, indication = null, enabled = enabled, onClick = {
+                expanded.value = true
+                focusRequester.requestFocus()
+            }).comboBoxIndicator(style.indicatorColor(false, interactionSource).value, shape, 2.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(Modifier.width(6.dp))

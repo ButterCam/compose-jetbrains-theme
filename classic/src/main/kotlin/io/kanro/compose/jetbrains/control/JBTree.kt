@@ -64,7 +64,7 @@ fun JBTreeItem(
             Row {
                 val isDarkTheme = LocalIconTheme.current == JBThemeStyle.DARK
                 Icon(
-                    imageVector = if(isDarkTheme) JBIcons.Actions.ArrowExpandDark else JBIcons.Actions.ArrowExpand,
+                    imageVector = if (isDarkTheme) JBIcons.Actions.ArrowExpandDark else JBIcons.Actions.ArrowExpand,
                     modifier = Modifier.size(16.dp).clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null

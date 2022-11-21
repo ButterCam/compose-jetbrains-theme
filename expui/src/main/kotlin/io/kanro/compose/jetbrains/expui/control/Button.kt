@@ -2,7 +2,6 @@ package io.kanro.compose.jetbrains.expui.control
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -12,10 +11,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -96,7 +97,7 @@ private fun ButtonImpl(
     colors: ButtonColors,
     content: @Composable RowScope.() -> Unit,
 ) {
-    val isFocused = interactionSource.collectIsFocusedAsState()
+    val isFocused = remember { mutableStateOf(false) }
     colors.provideArea(enabled, isFocused.value) {
         val areaColors = LocalAreaColors.current
         Box(
@@ -118,13 +119,16 @@ private fun ButtonImpl(
                         cornerRadius = CornerRadius(2.dp.toPx())
                     )
                 }
+            }.onFocusEvent {
+                isFocused.value = it.isFocused
             }.clickable(
                 interactionSource = interactionSource,
                 indication = null,
                 enabled = enabled,
                 onClick = onClick,
                 role = Role.Button
-            ).then(modifier), contentAlignment = Alignment.Center
+            ).then(modifier),
+            contentAlignment = Alignment.Center
         ) {
             Row(
                 modifier = Modifier.padding(14.dp, 3.dp),

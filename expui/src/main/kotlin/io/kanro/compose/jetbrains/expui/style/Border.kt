@@ -39,49 +39,53 @@ fun Modifier.outerBorder(border: BorderStroke, shape: Shape = RectangleShape) =
 fun Modifier.outerBorder(width: Dp, color: Color, shape: Shape = RectangleShape) =
     outerBorder(width, SolidColor(color), shape)
 
-fun Modifier.outerBorder(width: Dp, brush: Brush, shape: Shape): Modifier = composed(factory = {
-    // BorderCache object that is lazily allocated depending on the type of shape
-    // This object is only used for generic shapes and rounded rectangles with different corner
-    // radius sizes.
-    val borderCacheRef = remember { Ref<BorderCache>() }
-    this.then(Modifier.drawWithCache {
-        val hasValidBorderParams = width.toPx() >= 0f && size.minDimension > 0f
-        if (!hasValidBorderParams) {
-            drawContentWithoutBorder()
-        } else {
-            val strokeWidthPx = if (width == Dp.Hairline) 1f else ceil(width.toPx())
-            val halfStroke = strokeWidthPx / 2
-            val topLeft = Offset(-halfStroke, -halfStroke)
-            val borderSize = Size(
-                size.width + strokeWidthPx, size.height + strokeWidthPx
-            )
-            when (val outline = shape.createOutline(size, layoutDirection, this)) {
-                is Outline.Generic -> TODO("Not support for generic outline")
+fun Modifier.outerBorder(width: Dp, brush: Brush, shape: Shape): Modifier = composed(
+    factory = {
+        // BorderCache object that is lazily allocated depending on the type of shape
+        // This object is only used for generic shapes and rounded rectangles with different corner
+        // radius sizes.
+        val borderCacheRef = remember { Ref<BorderCache>() }
+        this.then(
+            Modifier.drawWithCache {
+                val hasValidBorderParams = width.toPx() >= 0f && size.minDimension > 0f
+                if (!hasValidBorderParams) {
+                    drawContentWithoutBorder()
+                } else {
+                    val strokeWidthPx = if (width == Dp.Hairline) 1f else ceil(width.toPx())
+                    val halfStroke = strokeWidthPx / 2
+                    val topLeft = Offset(-halfStroke, -halfStroke)
+                    val borderSize = Size(
+                        size.width + strokeWidthPx, size.height + strokeWidthPx
+                    )
+                    when (val outline = shape.createOutline(size, layoutDirection, this)) {
+                        is Outline.Generic -> TODO("Not support for generic outline")
 
-                is Outline.Rounded -> drawRoundRectBorder(
-                    borderCacheRef, brush, outline, topLeft, borderSize, strokeWidthPx
-                )
+                        is Outline.Rounded -> drawRoundRectBorder(
+                            borderCacheRef, brush, outline, topLeft, borderSize, strokeWidthPx
+                        )
 
-                is Outline.Rectangle -> drawRectBorder(
-                    brush, topLeft, borderSize, strokeWidthPx
-                )
+                        is Outline.Rectangle -> drawRectBorder(
+                            brush, topLeft, borderSize, strokeWidthPx
+                        )
+                    }
+                }
             }
+        )
+    },
+    inspectorInfo = debugInspectorInfo {
+        name = "outerBorder"
+        properties["width"] = width
+        if (brush is SolidColor) {
+            properties["color"] = brush.value
+            value = brush.value
+        } else {
+            properties["brush"] = brush
         }
-    })
-}, inspectorInfo = debugInspectorInfo {
-    name = "outerBorder"
-    properties["width"] = width
-    if (brush is SolidColor) {
-        properties["color"] = brush.value
-        value = brush.value
-    } else {
-        properties["brush"] = brush
+        properties["shape"] = shape
     }
-    properties["shape"] = shape
-})
+)
 
 private fun Ref<BorderCache>.obtain(): BorderCache = this.value ?: BorderCache().also { value = it }
-
 
 private data class BorderCache(
     private var imageBitmap: ImageBitmap? = null,

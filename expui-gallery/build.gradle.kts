@@ -8,7 +8,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation(project(":compose-jetbrains-expui-theme"))
     implementation(compose.desktop.currentOs) {
-        //exclude("org.jetbrains.compose.material")
+        // exclude("org.jetbrains.compose.material")
     }
     implementation(compose.uiTooling)
 }
@@ -22,7 +22,7 @@ compose.desktop {
             copyright = "Beijing Muke Technology Co., Ltd."
 
             macOS {
-                //jvmArgs("--add-exports", "java.desktop/com.apple.eawt=ALL-UNNAMED")
+                // jvmArgs("--add-exports", "java.desktop/com.apple.eawt=ALL-UNNAMED")
             }
         }
     }

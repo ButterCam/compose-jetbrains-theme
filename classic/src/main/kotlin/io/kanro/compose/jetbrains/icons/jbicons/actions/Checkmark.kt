@@ -16,11 +16,15 @@ internal val ActionsGroup.Checkmark: ImageVector
         if (_checkmark != null) {
             return _checkmark!!
         }
-        _checkmark = Builder(name = "Checkmark", defaultWidth = 14.0.dp, defaultHeight = 14.0.dp,
-                viewportWidth = 14.0f, viewportHeight = 14.0f).apply {
-            path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = EvenOdd) {
+        _checkmark = Builder(
+            name = "Checkmark", defaultWidth = 14.0.dp, defaultHeight = 14.0.dp,
+            viewportWidth = 14.0f, viewportHeight = 14.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
+                strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                pathFillType = EvenOdd
+            ) {
                 moveTo(5.625f, 8.4267f)
                 lineTo(9.5566f, 2.9336f)
                 curveTo(9.5566f, 2.9336f, 10.1737f, 2.3242f, 10.8612f, 2.8242f)
@@ -35,7 +39,7 @@ internal val ActionsGroup.Checkmark: ImageVector
                 close()
             }
         }
-        .build()
+            .build()
         return _checkmark!!
     }
 

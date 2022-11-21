@@ -45,10 +45,13 @@ import io.kanro.compose.jetbrains.expui.style.LocalSelectionAreaColors
 import io.kanro.compose.jetbrains.expui.theme.LightTheme
 
 class SegmentedButtonColors(
-    override val normalAreaColors: AreaColors, override val focusAreaColors: AreaColors,
+    override val normalAreaColors: AreaColors,
+    override val focusAreaColors: AreaColors,
     val itemNormalAreaColors: AreaColors,
-    val itemHoverAreaColors: AreaColors, val itemPressedAreaColors: AreaColors,
-    val itemSelectionAreaColors: AreaColors, val itemSelectedFocusAreaColors: AreaColors,
+    val itemHoverAreaColors: AreaColors,
+    val itemPressedAreaColors: AreaColors,
+    val itemSelectionAreaColors: AreaColors,
+    val itemSelectedFocusAreaColors: AreaColors,
 ) : AreaProvider, FocusAreaProvider {
     @Composable
     fun provideArea(focused: Boolean, content: @Composable () -> Unit) {
@@ -62,7 +65,11 @@ class SegmentedButtonColors(
 
     @Composable
     fun provideItemArea(
-        selected: Boolean, focused: Boolean, hover: Boolean, pressed: Boolean, content: @Composable () -> Unit,
+        selected: Boolean,
+        focused: Boolean,
+        hover: Boolean,
+        pressed: Boolean,
+        content: @Composable () -> Unit,
     ) {
         val currentColors = when {
             selected -> if (focused) itemSelectedFocusAreaColors else itemSelectionAreaColors
@@ -101,49 +108,49 @@ fun SegmentedButton(
     val isFocused = interactionSource.collectIsFocusedAsState()
     val parentFocusRequester = remember { FocusRequester() }
 
-
     colors.provideArea(isFocused.value) {
         val areaColors = LocalAreaColors.current
-        Row(modifier.selectableGroup().drawWithCache {
-            onDrawBehind {
-                if (isFocused.value) {
+        Row(
+            modifier.selectableGroup().drawWithCache {
+                onDrawBehind {
+                    if (isFocused.value) {
+                        drawRoundRect(
+                            areaColors.focusColor,
+                            size = Size(size.width + 4.dp.toPx(), size.height + 4.dp.toPx()),
+                            topLeft = Offset(-2.dp.toPx(), -2.dp.toPx()),
+                            cornerRadius = CornerRadius(5.dp.toPx())
+                        )
+                    }
+                    drawRoundRect(areaColors.startBorderColor, cornerRadius = CornerRadius(3.dp.toPx()))
                     drawRoundRect(
-                        areaColors.focusColor,
-                        size = Size(size.width + 4.dp.toPx(), size.height + 4.dp.toPx()),
-                        topLeft = Offset(-2.dp.toPx(), -2.dp.toPx()),
-                        cornerRadius = CornerRadius(5.dp.toPx())
+                        areaColors.startBackground,
+                        size = Size(size.width - 2.dp.toPx(), size.height - 2.dp.toPx()),
+                        topLeft = Offset(1.dp.toPx(), 1.dp.toPx()),
+                        cornerRadius = CornerRadius(2.dp.toPx())
                     )
                 }
-                drawRoundRect(areaColors.startBorderColor, cornerRadius = CornerRadius(3.dp.toPx()))
-                drawRoundRect(
-                    areaColors.startBackground,
-                    size = Size(size.width - 2.dp.toPx(), size.height - 2.dp.toPx()),
-                    topLeft = Offset(1.dp.toPx(), 1.dp.toPx()),
-                    cornerRadius = CornerRadius(2.dp.toPx())
-                )
-            }
-        }.onKeyEvent {
-            if (it.type != KeyEventType.KeyUp) return@onKeyEvent false
-            if (!isFocused.value) return@onKeyEvent false
-            when (it.key) {
-                Key.DirectionLeft -> {
-                    val target = selectedIndex - 1
-                    if (target in 0 until itemCount) {
-                        onValueChange?.invoke(target)
+            }.onKeyEvent {
+                if (it.type != KeyEventType.KeyUp) return@onKeyEvent false
+                if (!isFocused.value) return@onKeyEvent false
+                when (it.key) {
+                    Key.DirectionLeft -> {
+                        val target = selectedIndex - 1
+                        if (target in 0 until itemCount) {
+                            onValueChange?.invoke(target)
+                        }
+                        return@onKeyEvent true
                     }
-                    return@onKeyEvent true
-                }
 
-                Key.DirectionRight -> {
-                    val target = selectedIndex + 1
-                    if (target in 0 until itemCount) {
-                        onValueChange?.invoke(target)
+                    Key.DirectionRight -> {
+                        val target = selectedIndex + 1
+                        if (target in 0 until itemCount) {
+                            onValueChange?.invoke(target)
+                        }
+                        return@onKeyEvent true
                     }
-                    return@onKeyEvent true
                 }
-            }
-            false
-        }.focusRequester(parentFocusRequester).focusable(true, interactionSource = interactionSource),
+                false
+            }.focusRequester(parentFocusRequester).focusable(true, interactionSource = interactionSource),
             horizontalArrangement = Arrangement.spacedBy((-1).dp)
         ) {
             repeat(itemCount) {
@@ -155,24 +162,25 @@ fun SegmentedButton(
                     val current = LocalAreaColors.current
                     val focusManager = LocalFocusManager.current
 
-                    Box(modifier = Modifier.drawWithCache {
-                        onDrawBehind {
-                            drawRoundRect(current.startBorderColor, cornerRadius = CornerRadius(3.dp.toPx()))
-                            drawRoundRect(
-                                current.startBackground,
-                                size = Size(size.width - 2.dp.toPx(), size.height - 2.dp.toPx()),
-                                topLeft = Offset(1.dp.toPx(), 1.dp.toPx()),
-                                cornerRadius = CornerRadius(2.dp.toPx())
-                            )
-                        }
-                    }.focusProperties {
-                        this.canFocus = false
-                    }.selectable(selectedIndex == it, onClick = {
-                        onValueChange?.invoke(it)
-                        if (!isFocused.value) {
-                            focusManager.clearFocus()
-                        }
-                    }, interactionSource = itemInteractionSource, indication = null, role = Role.RadioButton)
+                    Box(
+                        modifier = Modifier.drawWithCache {
+                            onDrawBehind {
+                                drawRoundRect(current.startBorderColor, cornerRadius = CornerRadius(3.dp.toPx()))
+                                drawRoundRect(
+                                    current.startBackground,
+                                    size = Size(size.width - 2.dp.toPx(), size.height - 2.dp.toPx()),
+                                    topLeft = Offset(1.dp.toPx(), 1.dp.toPx()),
+                                    cornerRadius = CornerRadius(2.dp.toPx())
+                                )
+                            }
+                        }.focusProperties {
+                            this.canFocus = false
+                        }.selectable(selectedIndex == it, onClick = {
+                            onValueChange?.invoke(it)
+                            if (!isFocused.value) {
+                                focusManager.clearFocus()
+                            }
+                        }, interactionSource = itemInteractionSource, indication = null, role = Role.RadioButton)
                     ) {
                         Box(modifier = Modifier.padding(13.dp, 4.dp)) {
                             valueRender(it)

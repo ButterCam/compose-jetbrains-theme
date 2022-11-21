@@ -99,25 +99,28 @@ private fun TextAreaDecorationBox(
     placeholder: @Composable (() -> Unit)? = null,
     footer: @Composable (() -> Unit)? = null,
 ) {
-    Layout(modifier = Modifier.areaBackground(shape = shape).areaFocusBorder(focused, shape = shape)
-        .areaBorder(shape = shape), content = {
-        if (footer != null) {
-            Row(modifier = Modifier.layoutId(FooterId), horizontalArrangement = Arrangement.Start) {
-                Box(modifier = Modifier.padding(horizontal = 6.dp)) {
-                    footer()
+    Layout(
+        modifier = Modifier.areaBackground(shape = shape).areaFocusBorder(focused, shape = shape)
+            .areaBorder(shape = shape),
+        content = {
+            if (footer != null) {
+                Row(modifier = Modifier.layoutId(FooterId), horizontalArrangement = Arrangement.Start) {
+                    Box(modifier = Modifier.padding(horizontal = 6.dp)) {
+                        footer()
+                    }
                 }
             }
-        }
-        if (placeholder != null) {
-            Box(modifier = Modifier.layoutId(PlaceholderId), contentAlignment = Alignment.Center) {
-                placeholder()
+            if (placeholder != null) {
+                Box(modifier = Modifier.layoutId(PlaceholderId), contentAlignment = Alignment.Center) {
+                    placeholder()
+                }
+            }
+
+            Box(modifier = Modifier.layoutId(TextFieldId), propagateMinConstraints = true) {
+                innerTextField()
             }
         }
-
-        Box(modifier = Modifier.layoutId(TextFieldId), propagateMinConstraints = true) {
-            innerTextField()
-        }
-    }) { measurables, incomingConstraints ->
+    ) { measurables, incomingConstraints ->
         // used to calculate the constraints for measuring elements that will be placed in a row
         var occupiedSpaceVertically = 0
 
@@ -176,7 +179,6 @@ private fun calculateHeight(
     val wrappedHeight = (footerPlaceable?.height ?: 0) + middleSection
     return max(wrappedHeight, constraints.minHeight)
 }
-
 
 private fun Placeable.PlacementScope.place(
     height: Int,

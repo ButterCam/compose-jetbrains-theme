@@ -16,11 +16,15 @@ internal val ActionsGroup.CheckmarkIndeterminate: ImageVector
         if (_checkmarkIndeterminate != null) {
             return _checkmarkIndeterminate!!
         }
-        _checkmarkIndeterminate = Builder(name = "CheckmarkIndeterminate", defaultWidth = 14.0.dp,
-                defaultHeight = 14.0.dp, viewportWidth = 14.0f, viewportHeight = 14.0f).apply {
-            path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _checkmarkIndeterminate = Builder(
+            name = "CheckmarkIndeterminate", defaultWidth = 14.0.dp,
+            defaultHeight = 14.0.dp, viewportWidth = 14.0f, viewportHeight = 14.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
+                strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                pathFillType = NonZero
+            ) {
                 moveTo(3.7402f, 5.73f)
                 lineTo(10.1402f, 5.73f)
                 arcTo(1.0f, 1.0f, 0.0f, false, true, 11.1402f, 6.73f)
@@ -33,7 +37,7 @@ internal val ActionsGroup.CheckmarkIndeterminate: ImageVector
                 close()
             }
         }
-        .build()
+            .build()
         return _checkmarkIndeterminate!!
     }
 

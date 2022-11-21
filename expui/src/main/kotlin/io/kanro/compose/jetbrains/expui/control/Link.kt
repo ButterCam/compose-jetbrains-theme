@@ -4,7 +4,6 @@ import androidx.compose.foundation.Indication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.focus.focusProperties
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Path
@@ -146,73 +146,79 @@ fun Link(
             )
         )
 
-        val focus = interactionSource.collectIsFocusedAsState()
-        Box(modifier = Modifier.focusable(enabled, interactionSource).drawWithCache {
-            onDrawBehind {
-                if (focus.value) {
-                    val controlOutline = RoundedCornerShape(2.dp).createOutline(size, layoutDirection, this)
-                    val highlightOutline =
-                        RoundRect(controlOutline.bounds.inflate(2.dp.toPx()), CornerRadius(4.dp.toPx()))
-                    val highlightPath = Path().apply {
-                        this.fillType = PathFillType.EvenOdd
-                        addRoundRect(highlightOutline)
-                        addOutline(controlOutline)
-                        close()
+        val focus = remember { mutableStateOf(false) }
+        Box(
+            modifier = Modifier.onFocusEvent {
+                focus.value = it.isFocused
+            }.focusable(enabled, interactionSource).drawWithCache {
+                onDrawBehind {
+                    if (focus.value) {
+                        val controlOutline = RoundedCornerShape(2.dp).createOutline(size, layoutDirection, this)
+                        val highlightOutline =
+                            RoundRect(controlOutline.bounds.inflate(2.dp.toPx()), CornerRadius(4.dp.toPx()))
+                        val highlightPath = Path().apply {
+                            this.fillType = PathFillType.EvenOdd
+                            addRoundRect(highlightOutline)
+                            addOutline(controlOutline)
+                            close()
+                        }
+                        drawPath(highlightPath, currentAreaColors.focusColor)
                     }
-                    drawPath(highlightPath, currentAreaColors.focusColor)
                 }
-            }
-        }.onKeyEvent {
-            if (it.type != KeyEventType.KeyUp) return@onKeyEvent false
-            if (!focus.value) return@onKeyEvent false
-            when (it.key) {
-                Key.Enter, Key.NumPadEnter -> {
-                    visited.value = true
-                    onClick()
-                    return@onKeyEvent true
+            }.onKeyEvent {
+                if (it.type != KeyEventType.KeyUp) return@onKeyEvent false
+                if (!focus.value) return@onKeyEvent false
+                when (it.key) {
+                    Key.Enter, Key.NumPadEnter -> {
+                        visited.value = true
+                        onClick()
+                        return@onKeyEvent true
+                    }
                 }
+                false
             }
-            false
-        }) {
+        ) {
             val rowInteractionSource = remember { MutableInteractionSource() }
             val focusManager = LocalFocusManager.current
-            Row(modifier = modifier.focusProperties {
-                this.canFocus = false
-            }.clickable(
-                onClick = {
-                    visited.value = true
-                    if (!focus.value) {
-                        focusManager.clearFocus()
+            Row(
+                modifier = modifier.focusProperties {
+                    this.canFocus = false
+                }.clickable(
+                    onClick = {
+                        visited.value = true
+                        if (!focus.value) {
+                            focusManager.clearFocus()
+                        }
+                        onClick()
+                    },
+                    enabled = enabled,
+                    role = Role.Button,
+                    indication = indication,
+                    interactionSource = rowInteractionSource,
+                ).pointerInput(Unit) {
+                    awaitPointerEventScope {
+                        while (true) {
+                            val event = awaitPointerEvent(PointerEventPass.Initial)
+                            if (!enabled) {
+                                return@awaitPointerEventScope
+                            }
+                            when (event.type) {
+                                PointerEventType.Enter -> hovered.value = true
+                                PointerEventType.Exit -> hovered.value = false
+                                PointerEventType.Press -> pressed.value = true
+                                PointerEventType.Release -> pressed.value = false
+                                else -> {}
+                            }
+                        }
                     }
-                    onClick()
-                },
-                enabled = enabled,
-                role = Role.Button,
-                indication = indication,
-                interactionSource = rowInteractionSource,
-            ).pointerInput(Unit) {
-                awaitPointerEventScope {
-                    while (true) {
-                        val event = awaitPointerEvent(PointerEventPass.Initial)
-                        if (!enabled) {
-                            return@awaitPointerEventScope
-                        }
-                        when (event.type) {
-                            PointerEventType.Enter -> hovered.value = true
-                            PointerEventType.Exit -> hovered.value = false
-                            PointerEventType.Press -> pressed.value = true
-                            PointerEventType.Release -> pressed.value = false
-                            else -> {}
-                        }
+                }.composed {
+                    if (enabled) {
+                        pointerHoverIcon(PointerIcon(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)))
+                    } else {
+                        this
                     }
                 }
-            }.composed {
-                if (enabled) {
-                    pointerHoverIcon(PointerIcon(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)))
-                } else {
-                    this
-                }
-            }) {
+            ) {
                 BasicText(
                     text = text,
                     style = mergedStyle,

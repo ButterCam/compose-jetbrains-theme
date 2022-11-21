@@ -202,7 +202,8 @@ private fun TextFieldDecorationBox(
 ) {
     Layout(
         modifier = Modifier.areaBackground(shape = shape).areaFocusBorder(focused, shape = shape)
-            .areaBorder(shape = shape), content = {
+            .areaBorder(shape = shape),
+        content = {
             if (leadingIcon != null) {
                 Box(modifier = Modifier.layoutId(LeadingId), contentAlignment = Alignment.Center) {
                     leadingIcon()
@@ -222,7 +223,8 @@ private fun TextFieldDecorationBox(
             Box(modifier = Modifier.layoutId(TextFieldId), propagateMinConstraints = true) {
                 innerTextField()
             }
-        }) { measurables, incomingConstraints ->
+        }
+    ) { measurables, incomingConstraints ->
         // used to calculate the constraints for measuring elements that will be placed in a row
         var occupiedSpaceHorizontally = 0
 

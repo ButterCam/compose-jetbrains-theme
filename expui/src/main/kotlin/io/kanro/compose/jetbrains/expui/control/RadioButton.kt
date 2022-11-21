@@ -2,7 +2,6 @@ package io.kanro.compose.jetbrains.expui.control
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -12,9 +11,11 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import io.kanro.compose.jetbrains.expui.style.AreaColors
@@ -67,12 +68,40 @@ fun RadioButton(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     colors: RadioButtonColors = LocalRadioButtonColors.current,
+) {
+    val isFocused = remember { mutableStateOf(false) }
+    colors.provideArea(enabled, isFocused.value, selected) {
+        RadioButtonImpl(
+            isFocused.value, selected, modifier = modifier.onFocusEvent {
+                isFocused.value = it.isFocused
+            }.selectable(
+                selected = selected,
+                enabled = enabled,
+                onClick = onClick,
+                interactionSource = interactionSource,
+                indication = null,
+                role = Role.RadioButton
+            )
+        )
+    }
+}
+
+@Composable
+fun RadioButton(
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    colors: RadioButtonColors = LocalRadioButtonColors.current,
     content: @Composable RowScope.() -> Unit = {},
 ) {
-    val isFocused = interactionSource.collectIsFocusedAsState()
+    val isFocused = remember { mutableStateOf(false) }
     colors.provideArea(enabled, isFocused.value, selected) {
         Row(
-            modifier = modifier.selectable(
+            modifier = modifier.onFocusEvent {
+                isFocused.value = it.isFocused
+            }.selectable(
                 selected = selected,
                 enabled = enabled,
                 onClick = onClick,
@@ -91,9 +120,10 @@ fun RadioButton(
 private fun RadioButtonImpl(
     isFocused: Boolean,
     selected: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     val colors = LocalAreaColors.current
-    Canvas(Modifier.wrapContentSize(Alignment.Center).requiredSize(15.dp)) {
+    Canvas(modifier.wrapContentSize(Alignment.Center).requiredSize(15.dp)) {
         if (isFocused) {
             drawCircle(
                 colors.focusColor,
