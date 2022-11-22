@@ -9,7 +9,7 @@ internal object CustomWindowDecorationAccessing {
         UnsafeAccessing.assignAccessibility(
             UnsafeAccessing.desktopModule,
             listOf(
-                "java.awt", "sun.awt.windows"
+                "java.awt"
             )
         )
     }

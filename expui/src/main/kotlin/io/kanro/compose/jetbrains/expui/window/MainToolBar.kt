@@ -181,7 +181,7 @@ internal class MainToolBarMeasurePolicy(private val window: Window) : MeasurePol
             }
 
             CustomWindowDecorationAccessing.setCustomDecorationEnabled(window, true)
-            CustomWindowDecorationAccessing.setCustomDecorationTitleBarHeight(window, boxHeight)
+            CustomWindowDecorationAccessing.setCustomDecorationTitleBarHeight(window, boxHeight.toDp().value.toInt())
             CustomWindowDecorationAccessing.setCustomDecorationHitTestSpotsMethod(window, spots)
         }
     }
