@@ -89,26 +89,27 @@ fun Tab(
 ) {
     colors.provideArea(selected) {
         val currentColors = LocalAreaColors.current
-        Box(modifier.areaBackground().drawWithCache {
-            onDrawWithContent {
-                drawContent()
-                if (selected) {
-                    val strokeWidth = 3.dp.toPx()
-                    val start = Offset(strokeWidth / 2f, size.height - (strokeWidth / 2f))
-                    val end = start.copy(x = size.width - strokeWidth / 2f)
-                    drawLine(currentColors.focusColor, start, end, strokeWidth, cap = StrokeCap.Round)
+        Box(
+            modifier.areaBackground().drawWithCache {
+                onDrawWithContent {
+                    drawContent()
+                    if (selected) {
+                        val strokeWidth = 3.dp.toPx()
+                        val start = Offset(strokeWidth / 2f, size.height - (strokeWidth / 2f))
+                        val end = start.copy(x = size.width - strokeWidth / 2f)
+                        drawLine(currentColors.focusColor, start, end, strokeWidth, cap = StrokeCap.Round)
+                    }
                 }
-            }
-        }.focusProperties {
-            canFocus = false
-        }.selectable(
-            selected = selected,
-            enabled = true,
-            onClick = onSelected,
-            role = Role.Tab,
-            interactionSource = interactionSource,
-            indication = HoverOrPressedIndication(RectangleShape),
-        ).padding(horizontal = 12.dp)
+            }.focusProperties {
+                canFocus = false
+            }.selectable(
+                selected = selected,
+                enabled = true,
+                onClick = onSelected,
+                role = Role.Tab,
+                interactionSource = interactionSource,
+                indication = HoverOrPressedIndication(RectangleShape),
+            ).padding(horizontal = 12.dp)
         ) {
             Row(modifier = Modifier.align(Alignment.Center), content = content)
         }
@@ -128,28 +129,29 @@ fun CloseableTab(
     colors.provideArea(selected) {
         val currentColors = LocalAreaColors.current
         var hover by remember { mutableStateOf(false) }
-        Box(modifier.areaBackground().drawWithCache {
-            onDrawWithContent {
-                drawContent()
-                if (selected) {
-                    val strokeWidth = 3.dp.toPx()
-                    val start = Offset(strokeWidth / 2f, size.height - (strokeWidth / 2f))
-                    val end = start.copy(x = size.width - strokeWidth / 2f)
-                    drawLine(currentColors.focusColor, start, end, strokeWidth, cap = StrokeCap.Round)
+        Box(
+            modifier.areaBackground().drawWithCache {
+                onDrawWithContent {
+                    drawContent()
+                    if (selected) {
+                        val strokeWidth = 3.dp.toPx()
+                        val start = Offset(strokeWidth / 2f, size.height - (strokeWidth / 2f))
+                        val end = start.copy(x = size.width - strokeWidth / 2f)
+                        drawLine(currentColors.focusColor, start, end, strokeWidth, cap = StrokeCap.Round)
+                    }
                 }
-            }
-        }.focusProperties {
-            canFocus = false
-        }.selectable(
-            selected = selected,
-            enabled = true,
-            onClick = onSelected,
-            role = Role.Tab,
-            interactionSource = interactionSource,
-            indication = HoverOrPressedIndication(RectangleShape),
-        ).onHover {
-            hover = it
-        }.padding(horizontal = 12.dp)
+            }.focusProperties {
+                canFocus = false
+            }.selectable(
+                selected = selected,
+                enabled = true,
+                onClick = onSelected,
+                role = Role.Tab,
+                interactionSource = interactionSource,
+                indication = HoverOrPressedIndication(RectangleShape),
+            ).onHover {
+                hover = it
+            }.padding(horizontal = 12.dp)
         ) {
             Row(
                 modifier = Modifier.align(Alignment.Center).graphicsLayer(alpha = if (hover || selected) 1f else 0.7f),
@@ -169,17 +171,19 @@ private fun CloseButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     var hover by remember { mutableStateOf(false) }
-    Box(modifier = Modifier.size(16.dp).areaBackground().focusProperties {
-        canFocus = false
-    }.clickable(
-        enabled = shown,
-        onClick = onClosed,
-        role = Role.Button,
-        interactionSource = interactionSource,
-        indication = null,
-    ).onHover {
-        hover = it
-    }) {
+    Box(
+        modifier = Modifier.size(16.dp).areaBackground().focusProperties {
+            canFocus = false
+        }.clickable(
+            enabled = shown,
+            onClick = onClosed,
+            role = Role.Button,
+            interactionSource = interactionSource,
+            indication = null,
+        ).onHover {
+            hover = it
+        }
+    ) {
         if (shown) {
             Icon(
                 if (hover) "icons/closeSmallHovered.svg" else "icons/closeSmall.svg", contentDescription = "Close"

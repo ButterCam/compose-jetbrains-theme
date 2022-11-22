@@ -103,7 +103,7 @@ val LocalInactiveAreaColors = compositionLocalOf {
 }
 
 val LocalErrorAreaColors = compositionLocalOf {
-    LightTheme.NormalAreaColors
+    LightTheme.ErrorAreaColors
 }
 
 val LocalErrorInactiveAreaColors = compositionLocalOf {

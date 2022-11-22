@@ -72,7 +72,8 @@ fun RadioButton(
     val isFocused = remember { mutableStateOf(false) }
     colors.provideArea(enabled, isFocused.value, selected) {
         RadioButtonImpl(
-            isFocused.value, selected, modifier = modifier.onFocusEvent {
+            isFocused.value, selected,
+            modifier = modifier.onFocusEvent {
                 isFocused.value = it.isFocused
             }.selectable(
                 selected = selected,
@@ -108,7 +109,8 @@ fun RadioButton(
                 interactionSource = interactionSource,
                 indication = null,
                 role = Role.RadioButton
-            ), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             RadioButtonImpl(isFocused.value, selected)
             content()

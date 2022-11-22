@@ -49,7 +49,8 @@ fun Modifier.paintWithMarker(
 ): Modifier {
     return if (markerColor.isSpecified) {
         this.then(
-            PainterWithMarkerModifier(painter = painter,
+            PainterWithMarkerModifier(
+                painter = painter,
                 sizeToIntrinsics = sizeToIntrinsics,
                 alignment = alignment,
                 contentScale = contentScale,
@@ -65,7 +66,8 @@ fun Modifier.paintWithMarker(
                     properties["alpha"] = alpha
                     properties["colorFilter"] = colorFilter
                     properties["markerColor"] = markerColor
-                })
+                }
+            )
         )
     } else {
         this.paint(painter, sizeToIntrinsics, alignment, contentScale, alpha, colorFilter)

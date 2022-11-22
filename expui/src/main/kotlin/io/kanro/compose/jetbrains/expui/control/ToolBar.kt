@@ -87,7 +87,8 @@ fun ToolBarActionButton(
                 enabled = enabled,
                 onClick = onClick,
                 role = Role.Button
-            ).areaBackground(shape = shape), propagateMinConstraints = true
+            ).areaBackground(shape = shape),
+            propagateMinConstraints = true
         ) {
             content()
         }

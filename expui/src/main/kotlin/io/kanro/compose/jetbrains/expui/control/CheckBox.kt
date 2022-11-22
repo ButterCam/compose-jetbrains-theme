@@ -124,7 +124,8 @@ fun TriStateCheckbox(
     val isFocused = remember { mutableStateOf(false) }
     colors.provideArea(enabled, isFocused.value, state != ToggleableState.Off) {
         CheckboxImpl(
-            isFocused = isFocused.value, value = state, modifier = Modifier.onFocusEvent {
+            isFocused = isFocused.value, value = state,
+            modifier = Modifier.onFocusEvent {
                 isFocused.value = it.isFocused
             }.triStateToggleable(
                 state = state,
@@ -137,7 +138,6 @@ fun TriStateCheckbox(
         )
     }
 }
-
 
 @Composable
 fun TriStateCheckbox(
@@ -161,7 +161,8 @@ fun TriStateCheckbox(
                 role = Role.Checkbox,
                 interactionSource = interactionSource,
                 indication = null
-            ), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             CheckboxImpl(isFocused = isFocused.value, value = state)
             content()

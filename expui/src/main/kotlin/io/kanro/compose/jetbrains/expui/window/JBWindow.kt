@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
@@ -22,8 +23,9 @@ fun JBWindow(
     state: WindowState = rememberWindowState(),
     visible: Boolean = true,
     title: String = "",
+    showTitle: Boolean = true,
     theme: Theme = LightTheme,
-    icon: Painter? = null,
+    icon: Painter? = painterResource("icons/compose.svg"),
     resizable: Boolean = true,
     enabled: Boolean = true,
     focusable: Boolean = true,
@@ -35,12 +37,30 @@ fun JBWindow(
 ) {
     when (DesktopPlatform.Current) {
         DesktopPlatform.Linux -> TODO()
-        DesktopPlatform.Windows -> TODO()
+        DesktopPlatform.Windows -> JBWindowOnWindows(
+            onCloseRequest,
+            state,
+            visible,
+            title,
+            showTitle,
+            theme,
+            icon,
+            resizable,
+            enabled,
+            focusable,
+            alwaysOnTop,
+            onPreviewKeyEvent,
+            onKeyEvent,
+            mainToolBar,
+            content
+        )
+
         DesktopPlatform.MacOS -> JBWindowOnMacOS(
             onCloseRequest,
             state,
             visible,
             title,
+            showTitle,
             theme,
             resizable,
             enabled,

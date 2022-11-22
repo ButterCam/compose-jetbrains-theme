@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -75,8 +76,7 @@ fun main() {
                 exitProcess(0)
             },
             mainToolBar = {
-                Label("JetBrains ExpUI Gallery", Modifier.horizontalAlignment(Alignment.CenterHorizontally))
-                Row(Modifier.horizontalAlignment(Alignment.End)) {
+                Row(Modifier.mainToolBarItem(Alignment.End)) {
                     Tooltip("Open GitHub link in browser") {
                         ActionButton(
                             {
@@ -289,12 +289,7 @@ fun main() {
                         comboBoxSelection = it
                     }, modifier = Modifier.width(150.dp), menuModifier = Modifier.width(150.dp))
 
-                    val transition = rememberInfiniteTransition()
-                    val currentOffset by transition.animateFloat(0f, 1f, infiniteRepeatable(animation = keyframes {
-                        durationMillis = 1000
-                    }))
-
-                    ProgressBar(currentOffset)
+                    InfiniteProgressBar()
 
                     ProgressBar()
 
@@ -343,4 +338,13 @@ fun main() {
         }
     }
 }
-                
+
+@Composable
+fun InfiniteProgressBar() {
+    val transition = rememberInfiniteTransition()
+    val currentOffset by transition.animateFloat(0f, 1f, infiniteRepeatable(animation = keyframes {
+        durationMillis = 1000
+    }))
+
+    ProgressBar(currentOffset)
+}

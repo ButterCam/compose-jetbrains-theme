@@ -9,19 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
 import io.kanro.compose.jetbrains.expui.control.LocalContentActivated
@@ -29,17 +24,16 @@ import io.kanro.compose.jetbrains.expui.style.LocalAreaColors
 import io.kanro.compose.jetbrains.expui.style.areaBackground
 import io.kanro.compose.jetbrains.expui.theme.LightTheme
 import io.kanro.compose.jetbrains.expui.theme.Theme
-import java.awt.event.ComponentEvent
-import java.awt.event.ComponentListener
 
 @Composable
-internal fun JBWindowOnMacOS(
+internal fun JBWindowOnWindows(
     onCloseRequest: () -> Unit,
     state: WindowState = rememberWindowState(),
     visible: Boolean = true,
     title: String = "",
     showTitle: Boolean = true,
     theme: Theme = LightTheme,
+    icon: Painter? = null,
     resizable: Boolean = true,
     enabled: Boolean = true,
     focusable: Boolean = true,
@@ -54,7 +48,7 @@ internal fun JBWindowOnMacOS(
         state,
         visible,
         title,
-        null,
+        icon,
         false,
         false,
         resizable,
@@ -65,24 +59,13 @@ internal fun JBWindowOnMacOS(
         onKeyEvent
     ) {
         LaunchedEffect(Unit, theme) {
-            val rootPane = window.rootPane
-            // rootPane.putClientProperty("apple.awt.windowTransparentTitleBarHeight", 40f)
-            // rootPane.putClientProperty("apple.awt.fullWindowContent", true)
-            // rootPane.putClientProperty("apple.awt.transparentTitleBar", true)
-            // rootPane.putClientProperty("apple.awt.windowTitleVisible", false)
-            // rootPane.putClientProperty("apple.awt.fullscreenable", true)
-            rootPane.putClientProperty(
-                "apple.awt.windowAppearance",
-                if (theme.isDark) "NSAppearanceNameVibrantDark" else "NSAppearanceNameVibrantLight"
-            )
         }
         theme.provide {
             Column(Modifier.fillMaxSize()) {
                 CompositionLocalProvider(
                     LocalWindow provides window, LocalContentActivated provides LocalWindowInfo.current.isWindowFocused
                 ) {
-                    val isFullscreen by rememberWindowIsFullscreen()
-                    MainToolBarOnMacOS(title, showTitle, isFullscreen, content = mainToolBar)
+                    MainToolBarOnWindows(icon, state, onCloseRequest, title, showTitle, content = mainToolBar)
                     Spacer(Modifier.fillMaxWidth().height(1.dp).background(LocalAreaColors.current.startBorderColor))
                     Box(Modifier.fillMaxSize().areaBackground()) {
                         content()
@@ -91,29 +74,4 @@ internal fun JBWindowOnMacOS(
             }
         }
     }
-}
-
-@Composable
-fun FrameWindowScope.rememberWindowIsFullscreen(): State<Boolean> {
-    val isFullscreen = remember {
-        mutableStateOf(window.placement == WindowPlacement.Fullscreen)
-    }
-    DisposableEffect(window) {
-        val listener = object : ComponentListener {
-            override fun componentResized(e: ComponentEvent?) {
-                isFullscreen.value = window.placement == WindowPlacement.Fullscreen
-            }
-
-            override fun componentMoved(e: ComponentEvent?) {}
-
-            override fun componentShown(e: ComponentEvent?) {}
-
-            override fun componentHidden(e: ComponentEvent?) {}
-        }
-        window.addComponentListener(listener)
-        onDispose {
-            window.removeComponentListener(listener)
-        }
-    }
-    return isFullscreen
 }

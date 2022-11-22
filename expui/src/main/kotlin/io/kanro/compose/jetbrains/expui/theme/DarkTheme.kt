@@ -51,6 +51,7 @@ import io.kanro.compose.jetbrains.expui.style.LocalSelectionAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalSelectionInactiveAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalTextStyle
 import io.kanro.compose.jetbrains.expui.window.LocalMainToolBarColors
+import io.kanro.compose.jetbrains.expui.window.LocalWindowsCloseWindowButtonColors
 import io.kanro.compose.jetbrains.expui.window.MainToolBarColors
 
 object DarkTheme : Theme {
@@ -240,6 +241,45 @@ object DarkTheme : Theme {
                 focusColor = Blue6,
             ),
         )
+    )
+
+    val WindowsCloseWindowButtonColors = ActionButtonColors(
+        normalAreaColors = AreaColors(
+            text = Grey13,
+            foreground = Color.Unspecified,
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+            startBorderColor = Color.Unspecified,
+            endBorderColor = Color.Unspecified,
+            focusColor = Blue6,
+        ),
+        hoverAreaColors = AreaColors(
+            text = Grey13,
+            foreground = Color.Unspecified,
+            startBackground = Red6,
+            endBackground = Red6,
+            startBorderColor = Color.Unspecified,
+            endBorderColor = Color.Unspecified,
+            focusColor = Red6,
+        ),
+        pressedAreaColors = AreaColors(
+            text = Grey13,
+            foreground = Color.Unspecified,
+            startBackground = Red6,
+            endBackground = Red6,
+            startBorderColor = Color.Unspecified,
+            endBorderColor = Color.Unspecified,
+            focusColor = Red6,
+        ),
+        disabledAreaColors = AreaColors(
+            text = Grey13,
+            foreground = Grey6,
+            startBackground = Color.Unspecified,
+            endBackground = Color.Unspecified,
+            startBorderColor = Color.Unspecified,
+            endBorderColor = Color.Unspecified,
+            focusColor = Blue6,
+        ),
     )
 
     val ActionButtonColors = ActionButtonColors(
@@ -656,7 +696,6 @@ object DarkTheme : Theme {
         )
     )
 
-
     val CloseableTabColors = TabColors(
         normalAreaColors = NormalAreaColors.copy(
             startBackground = Color.Unspecified,
@@ -723,6 +762,7 @@ object DarkTheme : Theme {
             LocalProgressBarColors provides ProgressBarColors,
             LocalTabColors provides TabColors,
             LocalCloseableTabColors provides CloseableTabColors,
+            LocalWindowsCloseWindowButtonColors provides WindowsCloseWindowButtonColors,
             LocalContextMenuRepresentation provides JbContextMenuRepresentation(ContextMenuColors),
             LocalTextStyle provides DefaultTextStyle,
             content = content,

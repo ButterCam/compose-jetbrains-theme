@@ -65,9 +65,14 @@ fun ProgressBar(
     colors: ProgressBarColors = LocalProgressBarColors.current,
 ) {
     val transition = rememberInfiniteTransition()
-    val currentOffset by transition.animateFloat(0f, 1f, infiniteRepeatable(animation = keyframes {
-        durationMillis = 1000
-    }))
+    val currentOffset by transition.animateFloat(
+        0f, 1f,
+        infiniteRepeatable(
+            animation = keyframes {
+                durationMillis = 1000
+            }
+        )
+    )
     val currentColors = colors.indeterminateAreaColors
     Canvas(
         modifier.progressSemantics().size(200.dp, 4.dp)
