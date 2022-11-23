@@ -7,6 +7,7 @@ JetBrains style controls and UI for [Compose Desktop](https://www.jetbrains.com/
 ## Quick Start
 
 ## 1. Add dependency
+
 ```kotlin
 dependencies {
     implementation(compose.desktop.currentOs) {

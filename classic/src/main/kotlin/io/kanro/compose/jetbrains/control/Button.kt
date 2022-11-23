@@ -66,7 +66,7 @@ private data class DefaultButtonStyle(
     private val disableBorderBrush: Brush,
     private val disableBackgroundBrush: Brush,
     private val disabledContentColor: Color,
-    private val focusingColor: Color
+    private val focusingColor: Color,
 ) : ButtonStyle {
     @Composable
     override fun borderBrush(enabled: Boolean): State<Brush> {
@@ -168,7 +168,7 @@ fun Button(
     borderWidth: Dp = 1.dp,
     style: ButtonStyle = ButtonDefaults.buttonStyle(),
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.() -> Unit,
 ) {
     val focusRequester = remember { FocusRequester() }
 
@@ -255,5 +255,5 @@ fun OutlineButton(
     borderWidth: Dp = 1.dp,
     style: ButtonStyle = ButtonDefaults.outlineButtonStyle(),
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.() -> Unit,
 ) = Button(onClick, modifier, enabled, interactionSource, shape, borderWidth, style, contentPadding, content)

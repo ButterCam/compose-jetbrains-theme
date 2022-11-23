@@ -18,7 +18,7 @@ import io.kanro.compose.jetbrains.JBTheme
 @Composable
 fun JPanel(
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit
+    content: @Composable BoxScope.() -> Unit,
 ) {
     Box(modifier.background(JBTheme.panelColors.bgDialog)) {
         content()
@@ -37,7 +37,7 @@ fun Modifier.jBorder(all: Dp = 0.dp, color: Color): Modifier {
 fun Modifier.jBorder(
     horizontal: Dp = 0.dp,
     vertical: Dp = 0.dp,
-    color: Color
+    color: Color,
 ): Modifier {
     return jBorder(horizontal, horizontal, vertical, vertical, color)
 }
@@ -47,7 +47,7 @@ fun Modifier.jBorder(
     end: Dp = 0.dp,
     top: Dp = 0.dp,
     bottom: Dp = 0.dp,
-    color: Color
+    color: Color,
 ): Modifier {
     return drawWithCache {
         onDrawWithContent {

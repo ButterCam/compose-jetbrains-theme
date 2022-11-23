@@ -123,7 +123,7 @@ private data class DefaultTextFieldStyle(
     @Composable
     override fun indicatorColor(
         isError: Boolean,
-        interactionSource: InteractionSource
+        interactionSource: InteractionSource,
     ): State<Color> {
         val focused by interactionSource.collectIsFocusedAsState()
 
@@ -286,7 +286,7 @@ internal fun TextFieldLayout(
     indicatorColor: Color,
     cursorColor: Color,
     backgroundColor: Color,
-    shape: Shape
+    shape: Shape,
 ) {
     BasicTextField(
         value = value,
@@ -494,7 +494,7 @@ private fun calculateWidth(
     trailingPlaceable: Placeable?,
     textFieldPlaceable: Placeable,
     placeholderPlaceable: Placeable?,
-    constraints: Constraints
+    constraints: Constraints,
 ): Int {
     val middleSection = maxOf(
         textFieldPlaceable.width,
@@ -513,7 +513,7 @@ private fun calculateHeight(
     textFieldPlaceable: Placeable,
     placeholderPlaceable: Placeable?,
     constraints: Constraints,
-    density: Float
+    density: Float,
 ): Int {
     // middle section is defined as a height of the text field or placeholder ( whichever is
     // taller) plus 16.dp or half height of the label if it is taller, given that the label
@@ -543,7 +543,7 @@ private fun Placeable.PlacementScope.place(
     placeholderPlaceable: Placeable?,
     borderPlaceable: Placeable,
     singleLine: Boolean,
-    density: Float
+    density: Float,
 ) {
     val topBottomPadding = (VerticalTextFieldPadding.value * density).roundToInt()
 
@@ -587,7 +587,7 @@ internal fun Decoration(
     contentColor: Color,
     typography: TextStyle? = null,
     contentAlpha: Float? = null,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colorAndEmphasis: @Composable () -> Unit = @Composable {
         CompositionLocalProvider(LocalContentColor provides contentColor) {
@@ -628,7 +628,7 @@ object TextFieldDefaults {
         indicatorColor: Color = JBTheme.focusColors.default,
         errorIndicatorColor: Color = JBTheme.focusColors.error,
         cursorColor: Color = JBTheme.textColors.default,
-        errorCursorColor: Color = JBTheme.textColors.error
+        errorCursorColor: Color = JBTheme.textColors.error,
     ): TextFieldStyle = DefaultTextFieldStyle(
         textColor,
         disabledTextColor,

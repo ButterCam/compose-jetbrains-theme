@@ -129,7 +129,7 @@ fun JBTheme(
     typography: JBTypography = JBTypography(),
     iconTheme: JBThemeStyle = JBThemeStyle.LIGHT,
     selectionScope: @Composable () -> Array<ProvidedValue<out Any>> = lightSelectionScope,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
         LocalThemeStyle provides style,

@@ -23,7 +23,7 @@ fun JBToolBar(
     orientation: Orientation,
     arrangement: Arrangement.HorizontalOrVertical = Arrangement.spacedBy(8.dp),
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
         LocalToolBarOrientation provides orientation,
@@ -34,6 +34,7 @@ fun JBToolBar(
                 verticalArrangement = arrangement,
                 content = content
             )
+
             Orientation.Horizontal -> JBToolBarRow(
                 modifier.height(28.dp),
                 horizontalArrangement = arrangement,
@@ -47,7 +48,7 @@ fun JBToolBar(
 private fun JBToolBarColumn(
     modifier: Modifier,
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(8.dp),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Column(
         modifier,
@@ -62,7 +63,7 @@ private fun JBToolBarColumn(
 private fun JBToolBarRow(
     modifier: Modifier,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.spacedBy(8.dp),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Row(
         modifier,

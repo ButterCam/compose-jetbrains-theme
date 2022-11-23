@@ -95,7 +95,7 @@ internal fun JBTreeBasicItem(
     onClick: () -> Unit,
     onDoubleClick: (() -> Unit)? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val padding = 7 + (LocalTreeLevel.current - 1) * 18
     Box(
@@ -125,7 +125,7 @@ internal fun JBTreeBasicItem(
 @Composable
 fun JBTreeList(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Column(modifier) {
         content()

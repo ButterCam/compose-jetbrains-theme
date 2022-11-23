@@ -48,7 +48,7 @@ fun <T> DropdownList(
     enabled: Boolean = true,
     valueRender: (T) -> String = { it.toString() },
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    style: TextFieldStyle = TextFieldDefaults.textFieldStyle()
+    style: TextFieldStyle = TextFieldDefaults.textFieldStyle(),
 ) {
     val shape = RoundedCornerShape(3.dp)
     val focusRequester = remember { FocusRequester() }

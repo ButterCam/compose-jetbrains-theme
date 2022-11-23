@@ -54,7 +54,7 @@ fun ProgressBar(
 
 @Composable
 fun ProgressBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val transition = rememberInfiniteTransition()
     val currentOffset by transition.animateFloat(

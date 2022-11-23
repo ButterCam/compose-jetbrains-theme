@@ -46,7 +46,7 @@ fun DropdownMenu(
     focusable: Boolean = true,
     modifier: Modifier = Modifier,
     offset: DpOffset = DpOffset(0.dp, 0.dp),
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     if (expanded) {
         val density = LocalDensity.current
@@ -82,7 +82,7 @@ fun DropdownMenuItem(
     onClick: () -> Unit,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Box(
         modifier
@@ -134,13 +134,13 @@ object DropdownMenuItemHoverIndication : Indication {
 data class DropdownMenuPositionProvider(
     val contentOffset: DpOffset,
     val density: Density,
-    val onPositionCalculated: (IntRect, IntRect) -> Unit = { _, _ -> }
+    val onPositionCalculated: (IntRect, IntRect) -> Unit = { _, _ -> },
 ) : PopupPositionProvider {
     override fun calculatePosition(
         anchorBounds: IntRect,
         windowSize: IntSize,
         layoutDirection: LayoutDirection,
-        popupContentSize: IntSize
+        popupContentSize: IntSize,
     ): IntOffset {
         // The min margin above and below the menu, relative to the screen.
         val verticalMargin = with(density) { 0 }
@@ -168,7 +168,7 @@ data class DropdownMenuPositionProvider(
         val toDisplayBottom = windowSize.height - popupContentSize.height - verticalMargin
         var y = sequenceOf(toBottom, toTop, toCenter, toDisplayBottom).firstOrNull {
             it >= verticalMargin &&
-                it + popupContentSize.height <= windowSize.height - verticalMargin
+                    it + popupContentSize.height <= windowSize.height - verticalMargin
         } ?: toTop
 
         // Desktop specific vertical position checking

@@ -47,6 +47,7 @@ object ActionButtonIndication : Indication {
                     val outline = shape.createOutline(size, layoutDirection, this)
                     drawOutline(outline, pressedColor)
                 }
+
                 isHover.value -> {
                     val outline = shape.createOutline(size, layoutDirection, this)
                     drawOutline(outline, hoverColor)
@@ -104,7 +105,7 @@ fun ActionButton(
     shape: Shape = RoundedCornerShape(3.dp),
     border: BorderStroke? = null,
     contentPadding: PaddingValues = ActionButtonDefaults.ContentPadding,
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.() -> Unit,
 ) {
     Box(
         modifier

@@ -1,7 +1,6 @@
 plugins {
     kotlin("jvm") version "1.7.20" apply false
     id("org.jetbrains.compose") version "1.2.1" apply false
-    id("org.jlleitschuh.gradle.ktlint") version "10.0.0" apply false
     id("nebula.maven-publish") version "18.0.0" apply false
     id("nebula.source-jar") version "18.0.0" apply false
     id("nebula.info") version "11.0.1" apply false
@@ -28,7 +27,6 @@ allprojects {
 
 subprojects {
     apply(plugin = "org.jetbrains.compose")
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
         kotlinOptions.jvmTarget = "17"

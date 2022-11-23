@@ -30,7 +30,7 @@ fun CheckBox(
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     TriStateCheckbox(
         state = ToggleableState(checked),
@@ -49,7 +49,7 @@ fun TriStateCheckbox(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val toggleableModifier =
         if (onClick != null) {
@@ -77,7 +77,7 @@ fun TriStateCheckbox(
 private fun CheckboxImpl(
     enabled: Boolean,
     value: ToggleableState,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     val icon = when (value) {
         ToggleableState.On -> rememberVectorPainter(JBIcons.Actions.Checkmark)

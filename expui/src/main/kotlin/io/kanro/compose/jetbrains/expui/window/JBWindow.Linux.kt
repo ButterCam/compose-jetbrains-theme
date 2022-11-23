@@ -25,7 +25,6 @@ import io.kanro.compose.jetbrains.expui.style.areaBackground
 import io.kanro.compose.jetbrains.expui.theme.LightTheme
 import io.kanro.compose.jetbrains.expui.theme.Theme
 
-
 @Composable
 internal fun JBWindowOnLinux(
     onCloseRequest: () -> Unit,

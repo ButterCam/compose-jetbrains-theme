@@ -30,7 +30,7 @@ fun Icon(
     resource: String,
     contentDescription: String? = null,
     modifier: Modifier = Modifier,
-    colorFilter: ColorFilter? = null
+    colorFilter: ColorFilter? = null,
 ) {
     Icon(
         themedSvgResource(resource, LocalIconTheme.current), contentDescription, modifier,
@@ -43,7 +43,7 @@ fun Icon(
     bitmap: ImageBitmap,
     contentDescription: String? = null,
     modifier: Modifier = Modifier,
-    colorFilter: ColorFilter? = null
+    colorFilter: ColorFilter? = null,
 ) {
     val painter = remember(bitmap) { BitmapPainter(bitmap) }
     Icon(
@@ -59,7 +59,7 @@ fun Icon(
     imageVector: ImageVector,
     contentDescription: String? = null,
     modifier: Modifier = Modifier,
-    colorFilter: ColorFilter? = null
+    colorFilter: ColorFilter? = null,
 ) {
     Icon(
         painter = rememberVectorPainter(imageVector),
@@ -74,7 +74,7 @@ fun Icon(
     painter: Painter,
     contentDescription: String? = null,
     modifier: Modifier = Modifier,
-    colorFilter: ColorFilter? = null
+    colorFilter: ColorFilter? = null,
 ) {
     val semantics = if (contentDescription != null) {
         Modifier.semantics {

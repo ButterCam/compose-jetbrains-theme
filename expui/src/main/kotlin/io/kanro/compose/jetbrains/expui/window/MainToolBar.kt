@@ -83,7 +83,8 @@ internal object MainToolBarScopeInstance : MainToolBarScope {
                     name = "mainToolBarItem"
                     properties["alignment"] = alignment
                     properties["draggableArea"] = draggableArea
-                })
+                }
+            )
         )
     }
 }

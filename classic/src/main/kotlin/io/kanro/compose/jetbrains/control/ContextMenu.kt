@@ -89,7 +89,7 @@ fun ContextMenuArea(
     items: () -> List<ContextMenuItem>,
     state: ContextMenuState = remember { ContextMenuState() },
     enabled: Boolean = true,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val data = ContextMenuData(items, LocalContextMenuData.current)
 
