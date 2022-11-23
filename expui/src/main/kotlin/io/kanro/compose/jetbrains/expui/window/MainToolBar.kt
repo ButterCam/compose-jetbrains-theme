@@ -83,8 +83,7 @@ internal object MainToolBarScopeInstance : MainToolBarScope {
                     name = "mainToolBarItem"
                     properties["alignment"] = alignment
                     properties["draggableArea"] = draggableArea
-                }
-            )
+                })
         )
     }
 }
@@ -144,7 +143,7 @@ internal class MainToolBarMeasurePolicy(private val window: Window) : MeasurePol
                 val y = Alignment.CenterVertically.align(placeable.height, boxHeight)
                 placeable.placeRelative(x, y)
                 headUsedSpace += placeable.width
-                spots[Rectangle(x, y, placeable.width, placeable.height)] = spotRule
+                spots[PxToDpRectangle(x, y, placeable.width, placeable.height)] = spotRule
             }
             placeableGroups[Alignment.End]?.forEach { (measurable, placeable) ->
                 val spotRule = (measurable.parentData as? MainToolBarChildData)?.spotRule() ?: 1
@@ -152,7 +151,7 @@ internal class MainToolBarMeasurePolicy(private val window: Window) : MeasurePol
                 val y = Alignment.CenterVertically.align(placeable.height, boxHeight)
                 placeable.placeRelative(x, y)
                 trailerUsedSpace += placeable.width
-                spots[Rectangle(x, y, placeable.width, placeable.height)] = spotRule
+                spots[PxToDpRectangle(x, y, placeable.width, placeable.height)] = spotRule
             }
 
             val centerPlaceable = placeableGroups[Alignment.CenterHorizontally] ?: listOf()
@@ -176,7 +175,7 @@ internal class MainToolBarMeasurePolicy(private val window: Window) : MeasurePol
                     val y = Alignment.CenterVertically.align(placeable.height, boxHeight)
                     placeable.placeRelative(x, y)
                     centerX += placeable.width
-                    spots[Rectangle(x, y, placeable.width, placeable.height)] = spotRule
+                    spots[PxToDpRectangle(x, y, placeable.width, placeable.height)] = spotRule
                 }
             }
 
@@ -185,6 +184,12 @@ internal class MainToolBarMeasurePolicy(private val window: Window) : MeasurePol
             CustomWindowDecorationAccessing.setCustomDecorationHitTestSpotsMethod(window, spots)
         }
     }
+}
+
+fun Density.PxToDpRectangle(x: Int, y: Int, width: Int, height: Int): Rectangle {
+    return Rectangle(
+        x.toDp().value.toInt(), y.toDp().value.toInt(), width.toDp().value.toInt(), height.toDp().value.toInt()
+    )
 }
 
 @Composable

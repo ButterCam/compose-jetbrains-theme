@@ -36,7 +36,23 @@ fun JBWindow(
     content: @Composable FrameWindowScope.() -> Unit,
 ) {
     when (DesktopPlatform.Current) {
-        DesktopPlatform.Linux -> TODO()
+        DesktopPlatform.Linux -> JBWindowOnLinux(
+            onCloseRequest,
+            state,
+            visible,
+            title,
+            showTitle,
+            theme,
+            resizable,
+            enabled,
+            focusable,
+            alwaysOnTop,
+            onPreviewKeyEvent,
+            onKeyEvent,
+            mainToolBar,
+            content
+        )
+
         DesktopPlatform.Windows -> JBWindowOnWindows(
             onCloseRequest,
             state,
