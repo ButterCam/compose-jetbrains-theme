@@ -15,15 +15,6 @@ dependencies {
     }
 }
 
-tasks.jar {
-    manifest {
-        attributes["Add-Exports"] = "java.desktop/com.apple.eawt java.desktop/com.apple.eawt.event"
-    }
-}
-
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
     kotlinOptions.jvmTarget = "11"
-    kotlinOptions.freeCompilerArgs += listOf(
-        // "-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
-    )
 }
