@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import io.kanro.compose.jetbrains.expui.control.ActionButton
@@ -68,7 +69,14 @@ fun main() {
             LightTheme
         }
 
-        JBWindow(title = "JetBrains ExpUI Gallery",
+        Window({}) {
+            LightTheme {
+
+            }
+        }
+
+        JBWindow(
+            title = "JetBrains ExpUI Gallery",
             theme = theme,
             state = rememberWindowState(size = DpSize(900.dp, 700.dp)),
             onCloseRequest = {

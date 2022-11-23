@@ -20,12 +20,18 @@ jobs:
         with:
           ref: ${{ github.event.release.tag_name }}
 
-      # Setup Java 11 environment for the next steps
-      - name: Setup Java
-        uses: actions/setup-java@v2
+      - name: Download JBR
+        uses: carlosperate/download-file-action@v2
         with:
-          java-version: 16
-          distribution: 'adopt'
+          file-url: 'https://cache-redirector.jetbrains.com/intellij-jbr/jbr-17.0.5-linux-x64-b653.14.tar.gz'
+          file-name: 'jbr-17.0.5.tar.gz'
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: jdkfile
+          jdkFile: jbr-17.0.5.tar.gz
           cache: gradle
 
       # Update Unreleased section with the current release note

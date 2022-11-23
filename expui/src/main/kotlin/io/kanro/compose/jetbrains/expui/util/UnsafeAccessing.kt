@@ -4,10 +4,14 @@ import sun.misc.Unsafe
 import java.lang.reflect.AccessibleObject
 
 internal object UnsafeAccessing {
-    val unsafe: Unsafe by lazy {
-        val theUnsafe = Unsafe::class.java.getDeclaredField("theUnsafe")
-        theUnsafe.isAccessible = true
-        theUnsafe.get(null) as Unsafe
+    private val unsafe: Any? by lazy {
+        try {
+            val theUnsafe = Unsafe::class.java.getDeclaredField("theUnsafe")
+            theUnsafe.isAccessible = true
+            theUnsafe.get(null) as Unsafe
+        } catch (e: Throwable) {
+            null
+        }
     }
 
     val desktopModule by lazy {
@@ -18,23 +22,41 @@ internal object UnsafeAccessing {
         this.javaClass.module
     }
 
-    private val isAccessibleFieldOffset: Long by lazy {
-        unsafe.objectFieldOffset(Parent::class.java.getDeclaredField("first"))
+    private val isAccessibleFieldOffset: Long? by lazy {
+        try {
+            (unsafe as? Unsafe)?.objectFieldOffset(Parent::class.java.getDeclaredField("first"))
+        } catch (e: Throwable) {
+            null
+        }
     }
 
     private val implAddOpens by lazy {
-        Module::class.java.getDeclaredMethod(
-            "implAddOpens", String::class.java, Module::class.java
-        ).accessible()
+        try {
+            Module::class.java.getDeclaredMethod(
+                "implAddOpens", String::class.java, Module::class.java
+            ).accessible()
+        } catch (e: Throwable) {
+            null
+        }
     }
 
     fun assignAccessibility(obj: AccessibleObject) {
-        unsafe.putBooleanVolatile(obj, isAccessibleFieldOffset, true)
+        try {
+            val theUnsafe = unsafe as? Unsafe ?: return
+            val offset = isAccessibleFieldOffset ?: return
+            theUnsafe.putBooleanVolatile(obj, offset, true)
+        } catch (e: Throwable) {
+            // ignore
+        }
     }
 
     fun assignAccessibility(module: Module, packages: List<String>) {
-        packages.forEach {
-            implAddOpens.invoke(module, it, ownerModule)
+        try {
+            packages.forEach {
+                implAddOpens?.invoke(module, it, ownerModule)
+            }
+        } catch (e: Throwable) {
+            // ignore
         }
     }
 

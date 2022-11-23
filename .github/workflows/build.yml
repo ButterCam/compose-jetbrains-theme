@@ -32,14 +32,12 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2
 
-      - name: Download a file
+      - name: Download JBR
         uses: carlosperate/download-file-action@v2
-        id: download-file
         with:
           file-url: 'https://cache-redirector.jetbrains.com/intellij-jbr/jbr-17.0.5-linux-x64-b653.14.tar.gz'
           file-name: 'jbr-17.0.5.tar.gz'
 
-      # Setup Java 11 environment for the next steps
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
