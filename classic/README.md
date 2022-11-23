@@ -2,7 +2,7 @@
 
 JetBrains style controls and UI for [Compose Desktop](https://www.jetbrains.com/lp/compose/).
 
-![screenshot](docs/screenshot.png)
+![screenshot](../docs/screenshot.png)
 
 ## Quick Start
 

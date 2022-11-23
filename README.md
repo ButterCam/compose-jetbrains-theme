@@ -1,6 +1,6 @@
 # JetBrains UI Kit for Compose Desktop
 
-JetBrains New UI style controls and UI for [Compose Desktop](https://www.jetbrains.com/lp/compose/).
+New JetBrains style controls and UI kits for [Compose Desktop](https://www.jetbrains.com/lp/compose/).
 
 Classic JetBrains UI kit have been moved to [here](classic).
 
