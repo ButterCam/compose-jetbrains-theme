@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- ExpUI theme support
 
 ## [1.1.0]
 - Target to jvm 1.11 #11

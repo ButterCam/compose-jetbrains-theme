@@ -6,4 +6,11 @@ pluginManagement {
     }
 }
 
-rootProject.name = "compose-jetbrains-theme"
+include("classic")
+include("expui")
+include("expui-gallery")
+
+project(":classic").name = "compose-jetbrains-theme"
+project(":expui").name = "compose-jetbrains-expui-theme"
+project(":expui-gallery").name = "compose-jetbrains-expui-gallery"
+
