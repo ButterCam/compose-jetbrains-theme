@@ -1,7 +1,10 @@
 # Changelog
 
 ## [Unreleased]
-- ExpUI theme support
+
+## [2.0.0]
+## What's Changed
+* :bookmark: Changelog update - v1.1.0
 
 ## [1.1.0]
 - Target to jvm 1.11 #11
