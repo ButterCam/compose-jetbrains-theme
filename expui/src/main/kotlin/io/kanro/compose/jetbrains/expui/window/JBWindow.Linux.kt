@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.platform.LocalWindowInfo
@@ -31,7 +30,6 @@ internal fun JBWindowOnLinux(
     state: WindowState = rememberWindowState(),
     visible: Boolean = true,
     title: String = "",
-    showTitle: Boolean = true,
     theme: Theme = LightTheme,
     resizable: Boolean = true,
     enabled: Boolean = true,
@@ -57,17 +55,12 @@ internal fun JBWindowOnLinux(
         onPreviewKeyEvent,
         onKeyEvent
     ) {
-        LaunchedEffect(Unit, theme) {
-            val rootPane = window.rootPane
-            rootPane.putClientProperty("xawt.mwm_decor_title", false)
-        }
         theme.provide {
             Column(Modifier.fillMaxSize()) {
                 CompositionLocalProvider(
                     LocalWindow provides window, LocalContentActivated provides LocalWindowInfo.current.isWindowFocused
                 ) {
-                    val isFullscreen by rememberWindowIsFullscreen()
-                    MainToolBarOnMacOS(title, showTitle, isFullscreen, content = mainToolBar)
+                    MainToolBarOnLinux(content = mainToolBar)
                     Spacer(Modifier.fillMaxWidth().height(1.dp).background(LocalAreaColors.current.startBorderColor))
                     Box(Modifier.fillMaxSize().areaBackground()) {
                         content()

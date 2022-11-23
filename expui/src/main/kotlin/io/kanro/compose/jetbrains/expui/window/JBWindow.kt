@@ -41,7 +41,6 @@ fun JBWindow(
             state,
             visible,
             title,
-            showTitle,
             theme,
             resizable,
             enabled,
