@@ -111,3 +111,21 @@ fun main() = application {
     }
 }
 ```
+
+
+# Screenshot
+
+## MacOS
+
+<img width="1012" alt="截屏2022-11-21 17 11 56" src="https://user-images.githubusercontent.com/9367842/203010912-68f54752-a598-49ad-9e50-9217dba544be.png">
+<img width="1012" alt="截屏2022-11-21 17 12 18" src="https://user-images.githubusercontent.com/9367842/203011027-3a835525-f44a-42e0-83f5-b1e27011b9e4.png">
+
+## Windows  
+
+![image](https://user-images.githubusercontent.com/9367842/203374673-be0e25ab-de0c-4682-a511-bbadf0949446.png)  
+![image](https://user-images.githubusercontent.com/9367842/203374902-0b384bdd-fff4-4cbc-a8eb-93d6b58229a2.png)
+
+## Linux(Ubuntu with Gnome)
+
+![image](https://user-images.githubusercontent.com/9367842/203574847-6b6a3d4a-0da2-41f8-ac3f-9a8402f26b16.png)
+![image](https://user-images.githubusercontent.com/9367842/203574918-953092bc-b00f-455b-a43a-237c63093095.png)
