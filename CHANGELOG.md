@@ -8,8 +8,7 @@
 - Add text styles for theme
 
 ## [2.0.0]
-## What's Changed
-* :bookmark: Changelog update - v1.1.0
+- Exp UI theme support
 
 ## [1.1.0]
 - Target to jvm 1.11 #11
