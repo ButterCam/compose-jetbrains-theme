@@ -2,7 +2,7 @@ package io.kanro.compose.jetbrains.expui.theme
 
 import androidx.compose.foundation.LocalContextMenuRepresentation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ProvidedValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,16 +40,27 @@ import io.kanro.compose.jetbrains.expui.control.ToolBarActionButtonColors
 import io.kanro.compose.jetbrains.expui.control.ToolTipColors
 import io.kanro.compose.jetbrains.expui.style.AreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalAreaColors
+import io.kanro.compose.jetbrains.expui.style.LocalDefaultBoldTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalDefaultTextStyle
 import io.kanro.compose.jetbrains.expui.style.LocalDisabledAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalErrorAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalErrorInactiveAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalFocusAreaColors
+import io.kanro.compose.jetbrains.expui.style.LocalH0TextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalH1TextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalH2BoldTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalH2TextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalH3BoldTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalH3TextStyle
 import io.kanro.compose.jetbrains.expui.style.LocalHoverAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalInactiveAreaColors
+import io.kanro.compose.jetbrains.expui.style.LocalMediumBoldTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalMediumTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalParagraphTextStyle
 import io.kanro.compose.jetbrains.expui.style.LocalPressedAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalSelectionAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalSelectionInactiveAreaColors
-import io.kanro.compose.jetbrains.expui.style.LocalTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalSmallTextStyle
 import io.kanro.compose.jetbrains.expui.window.LocalMainToolBarColors
 import io.kanro.compose.jetbrains.expui.window.LocalWindowsCloseWindowButtonColors
 import io.kanro.compose.jetbrains.expui.window.MainToolBarColors
@@ -729,11 +740,30 @@ object DarkTheme : Theme {
         fontFamily = Fonts.Inter, fontSize = 13.sp, fontWeight = FontWeight.Normal, color = Color.Unspecified
     )
 
-    val BoldTextStyle = DefaultTextStyle.copy(fontWeight = FontWeight.Medium)
+    val DefaultBoldTextStyle = DefaultTextStyle.copy(fontWeight = FontWeight.Bold)
 
-    @Composable
-    override fun provide(content: @Composable () -> Unit) {
-        CompositionLocalProvider(
+    val ParagraphTextStyle = DefaultTextStyle.copy(fontSize = 13.sp, fontWeight = FontWeight.Normal, lineHeight = 19.sp)
+
+    val MediumTextStyle = DefaultTextStyle.copy(fontSize = 12.sp, fontWeight = FontWeight.Normal, lineHeight = 15.sp)
+
+    val MediumBoldTextStyle = MediumTextStyle.copy(fontWeight = FontWeight.Bold)
+
+    val SmallTextStyle = DefaultTextStyle.copy(fontSize = 11.sp, fontWeight = FontWeight.Normal, lineHeight = 14.sp)
+
+    val H0TextStyle = DefaultTextStyle.copy(fontSize = 25.sp, fontWeight = FontWeight.Medium)
+
+    val H1TextStyle = DefaultTextStyle.copy(fontSize = 22.sp, fontWeight = FontWeight.Medium)
+
+    val H2TextStyle = DefaultTextStyle.copy(fontSize = 18.sp, fontWeight = FontWeight.Normal)
+
+    val H2BoldTextStyle = H2TextStyle.copy(fontWeight = FontWeight.Bold)
+
+    val H3TextStyle = DefaultTextStyle.copy(fontSize = 16.sp, fontWeight = FontWeight.Normal, lineHeight = 20.sp)
+
+    val H3BoldTextStyle = H3TextStyle.copy(fontWeight = FontWeight.Bold)
+
+    override fun provideValues(): Array<ProvidedValue<*>> {
+        return arrayOf(
             LocalIsDarkTheme provides isDark,
             LocalAreaColors provides NormalAreaColors,
             LocalInactiveAreaColors provides InactiveAreaColors,
@@ -764,8 +794,18 @@ object DarkTheme : Theme {
             LocalCloseableTabColors provides CloseableTabColors,
             LocalWindowsCloseWindowButtonColors provides WindowsCloseWindowButtonColors,
             LocalContextMenuRepresentation provides JbContextMenuRepresentation(ContextMenuColors),
-            LocalTextStyle provides DefaultTextStyle,
-            content = content,
+            LocalDefaultTextStyle provides DefaultTextStyle,
+            LocalDefaultBoldTextStyle provides DefaultBoldTextStyle,
+            LocalParagraphTextStyle provides ParagraphTextStyle,
+            LocalMediumTextStyle provides MediumTextStyle,
+            LocalMediumBoldTextStyle provides MediumBoldTextStyle,
+            LocalSmallTextStyle provides SmallTextStyle,
+            LocalH0TextStyle provides H0TextStyle,
+            LocalH1TextStyle provides H1TextStyle,
+            LocalH2TextStyle provides H2TextStyle,
+            LocalH2BoldTextStyle provides H2BoldTextStyle,
+            LocalH3TextStyle provides H3TextStyle,
+            LocalH3BoldTextStyle provides H3BoldTextStyle,
         )
     }
 }

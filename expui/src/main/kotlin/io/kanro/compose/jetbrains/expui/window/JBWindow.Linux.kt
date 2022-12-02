@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.platform.LocalWindowInfo
@@ -55,16 +54,16 @@ internal fun JBWindowOnLinux(
         onPreviewKeyEvent,
         onKeyEvent
     ) {
-        theme.provide {
+        CompositionLocalProvider(
+            LocalWindow provides window,
+            LocalContentActivated provides LocalWindowInfo.current.isWindowFocused,
+            *theme.provideValues()
+        ) {
             Column(Modifier.fillMaxSize()) {
-                CompositionLocalProvider(
-                    LocalWindow provides window, LocalContentActivated provides LocalWindowInfo.current.isWindowFocused
-                ) {
-                    MainToolBarOnLinux(content = mainToolBar)
-                    Spacer(Modifier.fillMaxWidth().height(1.dp).background(LocalAreaColors.current.startBorderColor))
-                    Box(Modifier.fillMaxSize().areaBackground()) {
-                        content()
-                    }
+                MainToolBarOnLinux(content = mainToolBar)
+                Spacer(Modifier.fillMaxWidth().height(1.dp).background(LocalAreaColors.current.startBorderColor))
+                Box(Modifier.fillMaxSize().areaBackground()) {
+                    content()
                 }
             }
         }

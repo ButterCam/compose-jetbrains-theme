@@ -2,7 +2,7 @@ package io.kanro.compose.jetbrains.expui.theme
 
 import androidx.compose.foundation.LocalContextMenuRepresentation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ProvidedValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,16 +40,27 @@ import io.kanro.compose.jetbrains.expui.control.ToolBarActionButtonColors
 import io.kanro.compose.jetbrains.expui.control.ToolTipColors
 import io.kanro.compose.jetbrains.expui.style.AreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalAreaColors
+import io.kanro.compose.jetbrains.expui.style.LocalDefaultBoldTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalDefaultTextStyle
 import io.kanro.compose.jetbrains.expui.style.LocalDisabledAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalErrorAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalErrorInactiveAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalFocusAreaColors
+import io.kanro.compose.jetbrains.expui.style.LocalH0TextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalH1TextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalH2BoldTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalH2TextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalH3BoldTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalH3TextStyle
 import io.kanro.compose.jetbrains.expui.style.LocalHoverAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalInactiveAreaColors
+import io.kanro.compose.jetbrains.expui.style.LocalMediumBoldTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalMediumTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalParagraphTextStyle
 import io.kanro.compose.jetbrains.expui.style.LocalPressedAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalSelectionAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalSelectionInactiveAreaColors
-import io.kanro.compose.jetbrains.expui.style.LocalTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalSmallTextStyle
 import io.kanro.compose.jetbrains.expui.window.LocalMainToolBarColors
 import io.kanro.compose.jetbrains.expui.window.LocalWindowsCloseWindowButtonColors
 import io.kanro.compose.jetbrains.expui.window.MainToolBarColors
@@ -189,8 +200,7 @@ object LightTheme : Theme {
     )
 
     val MainToolBarColors = MainToolBarColors(
-        isDark = true,
-        normalAreaColors = AreaColors(
+        isDark = true, normalAreaColors = AreaColors(
             text = Grey13,
             foreground = Color.Unspecified,
             startBackground = Grey2,
@@ -198,8 +208,7 @@ object LightTheme : Theme {
             startBorderColor = Grey1,
             endBorderColor = Grey1,
             focusColor = Blue6,
-        ),
-        inactiveAreaColors = AreaColors(
+        ), inactiveAreaColors = AreaColors(
             text = Grey13,
             foreground = Color.Unspecified,
             startBackground = Grey3,
@@ -207,8 +216,7 @@ object LightTheme : Theme {
             startBorderColor = Grey1,
             endBorderColor = Grey1,
             focusColor = Blue6,
-        ),
-        actionButtonColors = ActionButtonColors(
+        ), actionButtonColors = ActionButtonColors(
             normalAreaColors = AreaColors(
                 text = Grey13,
                 foreground = Color.Unspecified,
@@ -291,16 +299,13 @@ object LightTheme : Theme {
         normalAreaColors = NormalAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        hoverAreaColors = HoverAreaColors.copy(
+        ), hoverAreaColors = HoverAreaColors.copy(
             startBackground = Grey11,
             endBackground = Grey11,
-        ),
-        pressedAreaColors = PressedAreaColors.copy(
+        ), pressedAreaColors = PressedAreaColors.copy(
             startBackground = Grey10,
             endBackground = Grey10,
-        ),
-        disabledAreaColors = DisabledAreaColors.copy(
+        ), disabledAreaColors = DisabledAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
         )
@@ -313,22 +318,19 @@ object LightTheme : Theme {
             endBackground = Grey13,
             startBorderColor = Grey8,
             endBorderColor = Grey8,
-        ),
-        selectionAreaColors = SelectionAreaColors.copy(
+        ), selectionAreaColors = SelectionAreaColors.copy(
             foreground = Grey13,
             startBackground = Blue6,
             endBackground = Blue6,
             startBorderColor = Blue6,
             endBorderColor = Blue6,
-        ),
-        focusAreaColors = FocusAreaColors.copy(
+        ), focusAreaColors = FocusAreaColors.copy(
             foreground = Grey13,
             startBackground = Blue6,
             endBackground = Blue6,
             startBorderColor = Grey13,
             endBorderColor = Grey13,
-        ),
-        disabledAreaColors = DisabledAreaColors.copy(
+        ), disabledAreaColors = DisabledAreaColors.copy(
             foreground = Grey8,
             startBackground = Grey12,
             endBackground = Grey12,
@@ -344,22 +346,19 @@ object LightTheme : Theme {
             endBackground = Grey13,
             startBorderColor = Grey8,
             endBorderColor = Grey8,
-        ),
-        selectionAreaColors = SelectionAreaColors.copy(
+        ), selectionAreaColors = SelectionAreaColors.copy(
             foreground = Grey13,
             startBackground = Blue6,
             endBackground = Blue6,
             startBorderColor = Blue6,
             endBorderColor = Blue6,
-        ),
-        focusAreaColors = FocusAreaColors.copy(
+        ), focusAreaColors = FocusAreaColors.copy(
             foreground = Grey13,
             startBackground = Blue6,
             endBackground = Blue6,
             startBorderColor = Grey13,
             endBorderColor = Grey13,
-        ),
-        disabledAreaColors = DisabledAreaColors.copy(
+        ), disabledAreaColors = DisabledAreaColors.copy(
             foreground = Grey8,
             startBackground = Grey12,
             endBackground = Grey12,
@@ -375,15 +374,13 @@ object LightTheme : Theme {
             endBackground = Blue6,
             startBorderColor = Blue6,
             endBorderColor = Blue6,
-        ),
-        focusAreaColors = FocusAreaColors.copy(
+        ), focusAreaColors = FocusAreaColors.copy(
             text = Grey13,
             startBackground = Blue6,
             endBackground = Blue6,
             startBorderColor = Grey13,
             endBorderColor = Grey13,
-        ),
-        disabledAreaColors = DisabledAreaColors.copy(
+        ), disabledAreaColors = DisabledAreaColors.copy(
             text = Grey8,
             startBackground = Grey12,
             endBackground = Grey12,
@@ -399,15 +396,13 @@ object LightTheme : Theme {
             endBackground = Grey13,
             startBorderColor = Grey8,
             endBorderColor = Grey8,
-        ),
-        focusAreaColors = FocusAreaColors.copy(
+        ), focusAreaColors = FocusAreaColors.copy(
             text = Grey1,
             startBackground = Grey13,
             endBackground = Grey13,
             startBorderColor = Grey13,
             endBorderColor = Grey13,
-        ),
-        disabledAreaColors = DisabledAreaColors.copy(
+        ), disabledAreaColors = DisabledAreaColors.copy(
             text = Grey8,
             startBackground = Grey12,
             endBackground = Grey12,
@@ -419,20 +414,15 @@ object LightTheme : Theme {
     val LinkColors = LinkColors(
         normalAreaColors = NormalAreaColors.copy(
             text = Blue4,
-        ),
-        hoverAreaColors = HoverAreaColors.copy(
+        ), hoverAreaColors = HoverAreaColors.copy(
             text = Blue4,
-        ),
-        pressedAreaColors = PressedAreaColors.copy(
+        ), pressedAreaColors = PressedAreaColors.copy(
             text = Blue4,
-        ),
-        focusAreaColors = FocusAreaColors.copy(
+        ), focusAreaColors = FocusAreaColors.copy(
             text = Blue4,
-        ),
-        disabledAreaColors = NormalAreaColors.copy(
+        ), disabledAreaColors = NormalAreaColors.copy(
             text = Grey8,
-        ),
-        visitedAreaColors = NormalAreaColors.copy(
+        ), visitedAreaColors = NormalAreaColors.copy(
             text = Blue2,
         )
     )
@@ -444,43 +434,37 @@ object LightTheme : Theme {
             endBackground = Grey12,
             startBorderColor = Grey8,
             endBorderColor = Grey8,
-        ),
-        focusAreaColors = FocusAreaColors.copy(
+        ), focusAreaColors = FocusAreaColors.copy(
             text = Grey1,
             startBackground = Grey12,
             endBackground = Grey12,
             startBorderColor = Grey13,
             endBorderColor = Grey13,
-        ),
-        itemNormalAreaColors = NormalAreaColors.copy(
+        ), itemNormalAreaColors = NormalAreaColors.copy(
             text = Grey1,
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
             startBorderColor = Color.Unspecified,
             endBorderColor = Color.Unspecified,
-        ),
-        itemHoverAreaColors = HoverAreaColors.copy(
+        ), itemHoverAreaColors = HoverAreaColors.copy(
             text = Grey1,
             startBackground = Grey11,
             endBackground = Grey11,
             startBorderColor = Color.Unspecified,
             endBorderColor = Color.Unspecified,
-        ),
-        itemPressedAreaColors = PressedAreaColors.copy(
+        ), itemPressedAreaColors = PressedAreaColors.copy(
             text = Grey1,
             startBackground = Grey13,
             endBackground = Grey13,
             startBorderColor = Color.Unspecified,
             endBorderColor = Color.Unspecified,
-        ),
-        itemSelectionAreaColors = SelectionAreaColors.copy(
+        ), itemSelectionAreaColors = SelectionAreaColors.copy(
             text = Grey1,
             startBackground = Grey13,
             endBackground = Grey13,
             startBorderColor = Grey8,
             endBorderColor = Grey8,
-        ),
-        itemSelectedFocusAreaColors = SelectionAreaColors.copy(
+        ), itemSelectedFocusAreaColors = SelectionAreaColors.copy(
             text = Grey1,
             startBackground = Blue13,
             endBackground = Blue13,
@@ -490,8 +474,7 @@ object LightTheme : Theme {
     )
 
     val ToolTipColors = ToolTipColors(
-        isDark = true,
-        normalAreaColors = NormalAreaColors.copy(
+        isDark = true, normalAreaColors = NormalAreaColors.copy(
             text = Grey13,
             startBackground = Grey1,
             endBackground = Grey1,
@@ -507,30 +490,26 @@ object LightTheme : Theme {
             endBackground = Grey13,
             startBorderColor = Grey8,
             endBorderColor = Grey8,
-        ),
-        focusAreaColors = FocusAreaColors.copy(
+        ), focusAreaColors = FocusAreaColors.copy(
             text = Grey1,
             startBackground = Grey13,
             endBackground = Grey13,
             startBorderColor = Grey13,
             endBorderColor = Grey13,
-        ),
-        disabledAreaColors = DisabledAreaColors.copy(
+        ), disabledAreaColors = DisabledAreaColors.copy(
             text = Grey8,
             startBackground = Grey12,
             endBackground = Grey12,
             startBorderColor = Grey10,
             endBorderColor = Grey10,
-        ),
-        errorAreaColors = ErrorAreaColors.copy(
+        ), errorAreaColors = ErrorAreaColors.copy(
             text = Grey1,
             startBackground = Grey13,
             endBackground = Grey13,
             startBorderColor = Red6,
             endBorderColor = Red6,
             focusColor = Red6,
-        ),
-        errorFocusAreaColors = ErrorAreaColors.copy(
+        ), errorFocusAreaColors = ErrorAreaColors.copy(
             text = Grey1,
             startBackground = Grey13,
             endBackground = Grey13,
@@ -578,22 +557,19 @@ object LightTheme : Theme {
             endBackground = Grey13,
             startBorderColor = Grey8,
             endBorderColor = Grey8,
-        ),
-        focusAreaColors = FocusAreaColors.copy(
+        ), focusAreaColors = FocusAreaColors.copy(
             text = Grey1,
             startBackground = Grey13,
             endBackground = Grey13,
             startBorderColor = Grey13,
             endBorderColor = Grey13,
-        ),
-        disabledAreaColors = DisabledAreaColors.copy(
+        ), disabledAreaColors = DisabledAreaColors.copy(
             text = Grey8,
             startBackground = Grey12,
             endBackground = Grey12,
             startBorderColor = Grey10,
             endBorderColor = Grey10,
-        ),
-        dropdownMenuColors = DropdownMenuColors
+        ), dropdownMenuColors = DropdownMenuColors
     )
 
     val ContextMenuColors = ContextMenuColors(
@@ -631,29 +607,23 @@ object LightTheme : Theme {
         normalAreaColors = NormalAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        hoverAreaColors = HoverAreaColors.copy(
+        ), hoverAreaColors = HoverAreaColors.copy(
             startBackground = Grey10,
             endBackground = Grey10,
-        ),
-        pressedAreaColors = PressedAreaColors.copy(
+        ), pressedAreaColors = PressedAreaColors.copy(
             startBackground = Grey10,
             endBackground = Grey10,
-        ),
-        disabledAreaColors = DisabledAreaColors.copy(
+        ), disabledAreaColors = DisabledAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        inactiveAreaColors = NormalAreaColors.copy(
+        ), inactiveAreaColors = NormalAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        selectionAreaColors = SelectionAreaColors.copy(
+        ), selectionAreaColors = SelectionAreaColors.copy(
             foreground = Grey13,
             startBackground = Blue6,
             endBackground = Blue6,
-        ),
-        inactiveSelectionAreaColors = SelectionInactiveAreaColors.copy(
+        ), inactiveSelectionAreaColors = SelectionInactiveAreaColors.copy(
             startBackground = Grey10,
             endBackground = Grey10,
         )
@@ -676,25 +646,20 @@ object LightTheme : Theme {
         normalAreaColors = NormalAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        hoverAreaColors = HoverAreaColors.copy(
+        ), hoverAreaColors = HoverAreaColors.copy(
             startBackground = Grey11,
             endBackground = Grey11,
-        ),
-        pressedAreaColors = PressedAreaColors.copy(
+        ), pressedAreaColors = PressedAreaColors.copy(
             startBackground = Grey11,
             endBackground = Grey11,
-        ),
-        inactiveAreaColors = NormalAreaColors.copy(
+        ), inactiveAreaColors = NormalAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        selectionAreaColors = SelectionAreaColors.copy(
+        ), selectionAreaColors = SelectionAreaColors.copy(
             focusColor = Blue8,
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        inactiveSelectionAreaColors = SelectionInactiveAreaColors.copy(
+        ), inactiveSelectionAreaColors = SelectionInactiveAreaColors.copy(
             focusColor = Grey8,
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
@@ -705,25 +670,20 @@ object LightTheme : Theme {
         normalAreaColors = NormalAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        hoverAreaColors = HoverAreaColors.copy(
+        ), hoverAreaColors = HoverAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        pressedAreaColors = PressedAreaColors.copy(
+        ), pressedAreaColors = PressedAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        inactiveAreaColors = NormalAreaColors.copy(
+        ), inactiveAreaColors = NormalAreaColors.copy(
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        selectionAreaColors = SelectionAreaColors.copy(
+        ), selectionAreaColors = SelectionAreaColors.copy(
             focusColor = Blue8,
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
-        ),
-        inactiveSelectionAreaColors = SelectionInactiveAreaColors.copy(
+        ), inactiveSelectionAreaColors = SelectionInactiveAreaColors.copy(
             focusColor = Grey8,
             startBackground = Color.Unspecified,
             endBackground = Color.Unspecified,
@@ -734,11 +694,30 @@ object LightTheme : Theme {
         fontFamily = Fonts.Inter, fontSize = 13.sp, fontWeight = FontWeight.Normal, color = Color.Unspecified
     )
 
-    val BoldTextStyle = DefaultTextStyle.copy(fontWeight = FontWeight.Medium)
+    val DefaultBoldTextStyle = DefaultTextStyle.copy(fontWeight = FontWeight.Bold)
 
-    @Composable
-    override fun provide(content: @Composable () -> Unit) {
-        CompositionLocalProvider(
+    val ParagraphTextStyle = DefaultTextStyle.copy(fontSize = 13.sp, fontWeight = FontWeight.Normal, lineHeight = 19.sp)
+
+    val MediumTextStyle = DefaultTextStyle.copy(fontSize = 12.sp, fontWeight = FontWeight.Normal, lineHeight = 15.sp)
+
+    val MediumBoldTextStyle = MediumTextStyle.copy(fontWeight = FontWeight.Bold)
+
+    val SmallTextStyle = DefaultTextStyle.copy(fontSize = 11.sp, fontWeight = FontWeight.Normal, lineHeight = 14.sp)
+
+    val H0TextStyle = DefaultTextStyle.copy(fontSize = 25.sp, fontWeight = FontWeight.Medium)
+
+    val H1TextStyle = DefaultTextStyle.copy(fontSize = 22.sp, fontWeight = FontWeight.Medium)
+
+    val H2TextStyle = DefaultTextStyle.copy(fontSize = 18.sp, fontWeight = FontWeight.Normal)
+
+    val H2BoldTextStyle = H2TextStyle.copy(fontWeight = FontWeight.Bold)
+
+    val H3TextStyle = DefaultTextStyle.copy(fontSize = 16.sp, fontWeight = FontWeight.Normal, lineHeight = 20.sp)
+
+    val H3BoldTextStyle = H3TextStyle.copy(fontWeight = FontWeight.Bold)
+
+    override fun provideValues(): Array<ProvidedValue<*>> {
+        return arrayOf(
             LocalIsDarkTheme provides isDark,
             LocalAreaColors provides NormalAreaColors,
             LocalInactiveAreaColors provides InactiveAreaColors,
@@ -769,8 +748,18 @@ object LightTheme : Theme {
             LocalCloseableTabColors provides CloseableTabColors,
             LocalWindowsCloseWindowButtonColors provides WindowsCloseWindowButtonColors,
             LocalContextMenuRepresentation provides JbContextMenuRepresentation(ContextMenuColors),
-            LocalTextStyle provides DefaultTextStyle,
-            content = content,
+            LocalDefaultTextStyle provides DefaultTextStyle,
+            LocalDefaultBoldTextStyle provides DefaultBoldTextStyle,
+            LocalParagraphTextStyle provides ParagraphTextStyle,
+            LocalMediumTextStyle provides MediumTextStyle,
+            LocalMediumBoldTextStyle provides MediumBoldTextStyle,
+            LocalSmallTextStyle provides SmallTextStyle,
+            LocalH0TextStyle provides H0TextStyle,
+            LocalH1TextStyle provides H1TextStyle,
+            LocalH2TextStyle provides H2TextStyle,
+            LocalH2BoldTextStyle provides H2BoldTextStyle,
+            LocalH3TextStyle provides H3TextStyle,
+            LocalH3BoldTextStyle provides H3BoldTextStyle,
         )
     }
 }

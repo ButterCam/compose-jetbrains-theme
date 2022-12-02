@@ -52,12 +52,12 @@ import io.kanro.compose.jetbrains.expui.style.DisabledAreaProvider
 import io.kanro.compose.jetbrains.expui.style.FocusAreaProvider
 import io.kanro.compose.jetbrains.expui.style.HoverAreaProvider
 import io.kanro.compose.jetbrains.expui.style.LocalAreaColors
+import io.kanro.compose.jetbrains.expui.style.LocalDefaultTextStyle
 import io.kanro.compose.jetbrains.expui.style.LocalDisabledAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalFocusAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalHoverAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalNormalAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalPressedAreaColors
-import io.kanro.compose.jetbrains.expui.style.LocalTextStyle
 import io.kanro.compose.jetbrains.expui.style.PressedAreaProvider
 import io.kanro.compose.jetbrains.expui.theme.LightTheme
 import java.awt.Cursor
@@ -119,7 +119,7 @@ fun Link(
     indication: Indication? = null,
     colors: LinkColors = LocalLinkColors.current,
     onTextLayout: (TextLayoutResult) -> Unit = {},
-    style: TextStyle = LocalTextStyle.current,
+    style: TextStyle = LocalDefaultTextStyle.current,
     trailerIcon: @Composable (() -> Unit)? = null,
 ) {
     val visited = remember { mutableStateOf(false) }
@@ -250,7 +250,7 @@ fun ExternalLink(
     indication: Indication? = null,
     colors: LinkColors = LocalLinkColors.current,
     onTextLayout: (TextLayoutResult) -> Unit = {},
-    style: TextStyle = LocalTextStyle.current,
+    style: TextStyle = LocalDefaultTextStyle.current,
 ) {
     Link(
         text = text,
@@ -291,7 +291,7 @@ fun DropdownLink(
     indication: Indication? = null,
     colors: LinkColors = LocalLinkColors.current,
     onTextLayout: (TextLayoutResult) -> Unit = {},
-    style: TextStyle = LocalTextStyle.current,
+    style: TextStyle = LocalDefaultTextStyle.current,
 ) {
     Link(
         text = text,

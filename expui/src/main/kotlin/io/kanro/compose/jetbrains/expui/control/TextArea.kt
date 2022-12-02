@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.offset
 import io.kanro.compose.jetbrains.expui.style.LocalAreaColors
-import io.kanro.compose.jetbrains.expui.style.LocalTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalDefaultTextStyle
 import io.kanro.compose.jetbrains.expui.style.areaBackground
 import io.kanro.compose.jetbrains.expui.style.areaBorder
 import io.kanro.compose.jetbrains.expui.style.areaFocusBorder
@@ -42,7 +42,7 @@ fun TextArea(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = LocalDefaultTextStyle.current,
     placeholder: @Composable (() -> Unit)? = null,
     footer: @Composable (() -> Unit)? = null,
     isError: Boolean = false,

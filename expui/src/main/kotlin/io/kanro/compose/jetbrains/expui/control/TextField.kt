@@ -33,11 +33,11 @@ import io.kanro.compose.jetbrains.expui.style.AreaProvider
 import io.kanro.compose.jetbrains.expui.style.DisabledAreaProvider
 import io.kanro.compose.jetbrains.expui.style.ErrorFocusAreaProvider
 import io.kanro.compose.jetbrains.expui.style.LocalAreaColors
+import io.kanro.compose.jetbrains.expui.style.LocalDefaultTextStyle
 import io.kanro.compose.jetbrains.expui.style.LocalDisabledAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalErrorAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalFocusAreaColors
 import io.kanro.compose.jetbrains.expui.style.LocalNormalAreaColors
-import io.kanro.compose.jetbrains.expui.style.LocalTextStyle
 import io.kanro.compose.jetbrains.expui.style.areaBackground
 import io.kanro.compose.jetbrains.expui.style.areaBorder
 import io.kanro.compose.jetbrains.expui.style.areaFocusBorder
@@ -84,7 +84,7 @@ fun TextField(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = LocalDefaultTextStyle.current,
     placeholder: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
@@ -141,7 +141,7 @@ fun TextField(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = LocalDefaultTextStyle.current,
     placeholder: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,

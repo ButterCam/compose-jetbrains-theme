@@ -54,8 +54,6 @@ import io.kanro.compose.jetbrains.expui.style.LocalErrorAreaColors
 import io.kanro.compose.jetbrains.expui.theme.DarkTheme
 import io.kanro.compose.jetbrains.expui.theme.LightTheme
 import io.kanro.compose.jetbrains.expui.window.JBWindow
-import java.awt.Desktop
-import java.net.URI
 import kotlin.system.exitProcess
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -70,6 +68,7 @@ fun main() {
 
         JBWindow(
             title = "JetBrains ExpUI Gallery",
+            showTitle = false,
             theme = theme,
             state = rememberWindowState(size = DpSize(900.dp, 700.dp)),
             onCloseRequest = {
@@ -77,29 +76,29 @@ fun main() {
                 exitProcess(0)
             },
             mainToolBar = {
-                Row(Modifier.mainToolBarItem(Alignment.End)) {
-                    Tooltip("Open GitHub link in browser") {
-                        ActionButton(
-                            {
-                                Desktop.getDesktop()
-                                    .browse(URI.create("https://github.com/ButterCam/compose-jetbrains-theme"))
-                            }, Modifier.size(40.dp), shape = RectangleShape
-                        ) {
-                            Icon("icons/github.svg")
-                        }
-                    }
-                    Tooltip("Switch between dark and light mode,\ncurrently is ${if (isDark) "dark" else "light"} mode") {
-                        ActionButton(
-                            { isDark = !isDark }, Modifier.size(40.dp), shape = RectangleShape
-                        ) {
-                            if (isDark) {
-                                Icon("icons/darkTheme.svg")
-                            } else {
-                                Icon("icons/lightTheme.svg")
-                            }
-                        }
-                    }
-                }
+//                Row(Modifier.mainToolBarItem(Alignment.End)) {
+//                    Tooltip("Open GitHub link in browser") {
+//                        ActionButton(
+//                            {
+//                                Desktop.getDesktop()
+//                                    .browse(URI.create("https://github.com/ButterCam/compose-jetbrains-theme"))
+//                            }, Modifier.size(40.dp), shape = RectangleShape
+//                        ) {
+//                            Icon("icons/github.svg")
+//                        }
+//                    }
+//                    Tooltip("Switch between dark and light mode,\ncurrently is ${if (isDark) "dark" else "light"} mode") {
+//                        ActionButton(
+//                            { isDark = !isDark }, Modifier.size(40.dp), shape = RectangleShape
+//                        ) {
+//                            if (isDark) {
+//                                Icon("icons/darkTheme.svg")
+//                            } else {
+//                                Icon("icons/lightTheme.svg")
+//                            }
+//                        }
+//                    }
+//                }
             }) {
             Row(
                 Modifier.fillMaxSize()

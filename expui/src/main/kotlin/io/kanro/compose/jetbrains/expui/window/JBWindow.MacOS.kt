@@ -66,27 +66,22 @@ internal fun JBWindowOnMacOS(
     ) {
         LaunchedEffect(Unit, theme) {
             val rootPane = window.rootPane
-            // rootPane.putClientProperty("apple.awt.windowTransparentTitleBarHeight", 40f)
-            // rootPane.putClientProperty("apple.awt.fullWindowContent", true)
-            // rootPane.putClientProperty("apple.awt.transparentTitleBar", true)
-            // rootPane.putClientProperty("apple.awt.windowTitleVisible", false)
-            // rootPane.putClientProperty("apple.awt.fullscreenable", true)
             rootPane.putClientProperty(
                 "apple.awt.windowAppearance",
                 if (theme.isDark) "NSAppearanceNameVibrantDark" else "NSAppearanceNameVibrantLight"
             )
         }
-        theme.provide {
+        CompositionLocalProvider(
+            LocalWindow provides window,
+            LocalContentActivated provides LocalWindowInfo.current.isWindowFocused,
+            *theme.provideValues()
+        ) {
             Column(Modifier.fillMaxSize()) {
-                CompositionLocalProvider(
-                    LocalWindow provides window, LocalContentActivated provides LocalWindowInfo.current.isWindowFocused
-                ) {
-                    val isFullscreen by rememberWindowIsFullscreen()
-                    MainToolBarOnMacOS(title, showTitle, isFullscreen, content = mainToolBar)
-                    Spacer(Modifier.fillMaxWidth().height(1.dp).background(LocalAreaColors.current.startBorderColor))
-                    Box(Modifier.fillMaxSize().areaBackground()) {
-                        content()
-                    }
+                val isFullscreen by rememberWindowIsFullscreen()
+                MainToolBarOnMacOS(title, showTitle, isFullscreen, content = mainToolBar)
+                Spacer(Modifier.fillMaxWidth().height(1.dp).background(LocalAreaColors.current.startBorderColor))
+                Box(Modifier.fillMaxSize().areaBackground()) {
+                    content()
                 }
             }
         }

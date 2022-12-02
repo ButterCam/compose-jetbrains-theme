@@ -1,8 +1,6 @@
 package io.kanro.compose.jetbrains.expui.window
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -12,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.WindowPlacement
@@ -21,7 +18,6 @@ import io.kanro.compose.jetbrains.expui.control.ActionButton
 import io.kanro.compose.jetbrains.expui.control.Icon
 import io.kanro.compose.jetbrains.expui.control.LocalActionButtonColors
 import io.kanro.compose.jetbrains.expui.control.LocalContentActivated
-import io.kanro.compose.jetbrains.expui.style.areaBackground
 import io.kanro.compose.jetbrains.expui.theme.LightTheme
 
 @Composable
@@ -31,31 +27,24 @@ internal fun FrameWindowScope.MainToolBarOnWindows(
     onCloseRequest: () -> Unit,
     title: String,
     showTitle: Boolean,
+    resizeable: Boolean,
     colors: MainToolBarColors = LocalMainToolBarColors.current,
     content: (@Composable MainToolBarScope.() -> Unit)?,
 ) {
-    colors.provideArea(LocalContentActivated.current) {
-        Layout(
-            content = {
-                with(MainToolBarScopeInstance) {
-                    if (icon != null) {
-                        Box(
-                            modifier = Modifier.size(40.dp).mainToolBarItem(Alignment.Start, true),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(icon)
-                        }
-                    }
-                    WindowsSystemButtons(windowState, onCloseRequest)
-                    if (showTitle) {
-                        MainToolBarTitle(title)
-                    }
-                    content?.invoke(this)
-                }
-            },
-            modifier = Modifier.fillMaxWidth().height(40.dp).areaBackground(),
-            measurePolicy = rememberMainToolBarMeasurePolicy(window)
-        )
+    BasicMainToolBar(colors) {
+        if (icon != null) {
+            Box(
+                modifier = Modifier.size(40.dp).mainToolBarItem(Alignment.Start, true),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(icon)
+            }
+        }
+        WindowsSystemButtons(windowState, resizeable, onCloseRequest)
+        if (showTitle) {
+            MainToolBarTitle(title)
+        }
+        content?.invoke(this)
     }
 }
 
@@ -64,7 +53,11 @@ val LocalWindowsCloseWindowButtonColors = compositionLocalOf {
 }
 
 @Composable
-private fun MainToolBarScope.WindowsSystemButtons(windowState: WindowState, onCloseRequest: () -> Unit) {
+private fun MainToolBarScope.WindowsSystemButtons(
+    windowState: WindowState,
+    resizeable: Boolean,
+    onCloseRequest: () -> Unit,
+) {
     val active = LocalContentActivated.current
     CompositionLocalProvider(
         LocalActionButtonColors provides LocalWindowsCloseWindowButtonColors.current
@@ -90,6 +83,7 @@ private fun MainToolBarScope.WindowsSystemButtons(windowState: WindowState, onCl
             }
         },
         Modifier.focusProperties { canFocus = false }.size(40.dp).mainToolBarItem(Alignment.End),
+        enabled = resizeable,
         shape = RectangleShape
     ) {
         if (windowState.placement == WindowPlacement.Floating) {

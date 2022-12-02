@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.key.KeyEvent
@@ -58,18 +57,16 @@ internal fun JBWindowOnWindows(
         onPreviewKeyEvent,
         onKeyEvent
     ) {
-        LaunchedEffect(Unit, theme) {
-        }
-        theme.provide {
+        CompositionLocalProvider(
+            LocalWindow provides window,
+            LocalContentActivated provides LocalWindowInfo.current.isWindowFocused,
+            *theme.provideValues()
+        ) {
             Column(Modifier.fillMaxSize()) {
-                CompositionLocalProvider(
-                    LocalWindow provides window, LocalContentActivated provides LocalWindowInfo.current.isWindowFocused
-                ) {
-                    MainToolBarOnWindows(icon, state, onCloseRequest, title, showTitle, content = mainToolBar)
-                    Spacer(Modifier.fillMaxWidth().height(1.dp).background(LocalAreaColors.current.startBorderColor))
-                    Box(Modifier.fillMaxSize().areaBackground()) {
-                        content()
-                    }
+                MainToolBarOnWindows(icon, state, onCloseRequest, title, showTitle, resizable, content = mainToolBar)
+                Spacer(Modifier.fillMaxWidth().height(1.dp).background(LocalAreaColors.current.startBorderColor))
+                Box(Modifier.fillMaxSize().areaBackground()) {
+                    content()
                 }
             }
         }

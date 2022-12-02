@@ -108,7 +108,13 @@ internal class MainToolBarMeasurePolicy(private val window: Window) : MeasurePol
         if (measurables.isEmpty()) {
             return layout(
                 constraints.minWidth, constraints.minHeight
-            ) {}
+            ) {
+                CustomWindowDecorationAccessing.setCustomDecorationEnabled(window, true)
+                CustomWindowDecorationAccessing.setCustomDecorationTitleBarHeight(
+                    window,
+                    constraints.minHeight.toDp().value.toInt()
+                )
+            }
         }
 
         var occupiedSpaceHorizontally = 0
@@ -187,7 +193,7 @@ internal class MainToolBarMeasurePolicy(private val window: Window) : MeasurePol
     }
 }
 
-fun Density.PxToDpRectangle(x: Int, y: Int, width: Int, height: Int): Rectangle {
+internal fun Density.PxToDpRectangle(x: Int, y: Int, width: Int, height: Int): Rectangle {
     return Rectangle(
         x.toDp().value.toInt(), y.toDp().value.toInt(), width.toDp().value.toInt(), height.toDp().value.toInt()
     )
@@ -199,6 +205,6 @@ internal fun rememberMainToolBarMeasurePolicy(window: Window): MeasurePolicy {
 }
 
 @Composable
-internal fun MainToolBarScope.MainToolBarTitle(title: String) {
+fun MainToolBarScope.MainToolBarTitle(title: String) {
     Label(title, Modifier.mainToolBarItem(Alignment.CenterHorizontally, true), maxLines = 1)
 }

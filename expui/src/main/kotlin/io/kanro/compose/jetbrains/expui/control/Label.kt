@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import io.kanro.compose.jetbrains.expui.style.LocalAreaColors
-import io.kanro.compose.jetbrains.expui.style.LocalTextStyle
+import io.kanro.compose.jetbrains.expui.style.LocalDefaultTextStyle
 
 @Composable
 fun Label(
@@ -36,7 +36,7 @@ fun Label(
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
     onTextLayout: (TextLayoutResult) -> Unit = {},
-    style: TextStyle = LocalTextStyle.current,
+    style: TextStyle = LocalDefaultTextStyle.current,
 ) {
     val textColor = color.takeOrElse {
         style.color
@@ -86,7 +86,7 @@ fun Label(
     maxLines: Int = Int.MAX_VALUE,
     inlineContent: Map<String, InlineTextContent> = mapOf(),
     onTextLayout: (TextLayoutResult) -> Unit = {},
-    style: TextStyle = LocalTextStyle.current,
+    style: TextStyle = LocalDefaultTextStyle.current,
 ) {
     val textColor = color.takeOrElse {
         style.color
