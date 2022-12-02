@@ -11,7 +11,7 @@ import io.kanro.compose.jetbrains.expui.control.LocalContentActivated
 import io.kanro.compose.jetbrains.expui.style.areaBackground
 
 @Composable
-internal fun FrameWindowScope.BasicMainToolBar(
+fun FrameWindowScope.BasicMainToolBar(
     colors: MainToolBarColors = LocalMainToolBarColors.current,
     content: (@Composable MainToolBarScope.() -> Unit)?,
 ) {
