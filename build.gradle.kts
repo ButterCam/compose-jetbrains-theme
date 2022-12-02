@@ -14,7 +14,7 @@ allprojects {
     apply(plugin = "nebula.info")
 
     group = "com.bybutter.compose"
-    version = "2.0.0"
+    version = "2.1.0"
 
     contacts {
         addPerson("higan@live.cn", delegateClosureOf<nebula.plugin.contacts.Contact> {
