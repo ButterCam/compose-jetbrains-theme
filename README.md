@@ -1,3 +1,9 @@
+# We are planning to migrate to [JetBrains/jewel](https://github.com/JetBrains/jewel)!
+
+We are discussing with JetBrains officials about migrating this project to [JetBrains/jewel](https://github.com/JetBrains/jewel). This will be the focus of our next work.
+
+Track progress in these PRs: JetBrains/jewel#21
+
 # JetBrains UI Kit for Compose Desktop
 
 New JetBrains style controls and UI kits for [Compose Desktop](https://www.jetbrains.com/lp/compose/).
