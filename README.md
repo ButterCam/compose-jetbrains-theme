@@ -2,7 +2,7 @@
 
 We are discussing with JetBrains officials about migrating this project to [JetBrains/jewel](https://github.com/JetBrains/jewel). This will be the focus of our next work.
 
-Track progress in these PRs: JetBrains/jewel#21
+Track progress in this issue: JetBrains/jewel#28
 
 # JetBrains UI Kit for Compose Desktop
 
