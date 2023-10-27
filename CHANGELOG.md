@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+## [2.2.0]
 - Upgrade to compose 1.5.2
 
 ## [2.1.0]
