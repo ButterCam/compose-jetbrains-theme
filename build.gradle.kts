@@ -1,27 +1,30 @@
 plugins {
-    kotlin("jvm") version "1.7.20" apply false
-    id("org.jetbrains.compose") version "1.2.1" apply false
-    id("nebula.maven-publish") version "18.0.0" apply false
-    id("nebula.source-jar") version "18.0.0" apply false
-    id("nebula.info") version "11.0.1" apply false
-    id("com.bybutter.sisyphus.project") version "1.5.31" apply false
-    id("nebula.contacts") version "5.1.0"
+    id("com.bybutter.sisyphus.project") version "2.1.0" apply false
+    id("com.netflix.nebula.contacts") version "7.0.1"
+    id("com.netflix.nebula.info") version "12.1.6" apply false
+    id("com.netflix.nebula.maven-publish") version "20.3.0" apply false
+    id("com.netflix.nebula.source-jar") version "20.3.0" apply false
     id("org.jetbrains.changelog") version "1.3.0"
+    id("org.jetbrains.compose") version "1.5.2" apply false
+    kotlin("jvm") version "1.9.10" apply false
 }
 
 allprojects {
-    apply(plugin = "nebula.contacts")
-    apply(plugin = "nebula.info")
+    apply(plugin = "com.netflix.nebula.contacts")
+    apply(plugin = "com.netflix.nebula.info")
 
     group = "com.bybutter.compose"
-    version = "2.1.0"
+    version = "2.2.0"
 
     contacts {
-        addPerson("higan@live.cn", delegateClosureOf<nebula.plugin.contacts.Contact> {
-            moniker = "higan"
-            github = "devkanro"
-            roles.add("owner")
-        })
+        addPerson(
+            "higan@live.cn",
+            delegateClosureOf<nebula.plugin.contacts.Contact> {
+                moniker = "higan"
+                github = "devkanro"
+                roles.add("owner")
+            },
+        )
     }
 }
 

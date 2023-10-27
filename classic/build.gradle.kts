@@ -1,9 +1,10 @@
 plugins {
     kotlin("jvm")
     `java-library`
-    id("nebula.maven-publish")
-    id("nebula.source-jar")
+    id("com.netflix.nebula.maven-publish")
+    id("com.netflix.nebula.source-jar")
     id("com.bybutter.sisyphus.project")
+    id("org.jetbrains.compose")
 }
 
 description = "JetBrains UI Kit for Compose Desktop"
@@ -16,7 +17,7 @@ dependencies {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = "17"
     kotlinOptions.freeCompilerArgs += listOf(
         // "-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
     )

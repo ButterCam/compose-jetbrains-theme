@@ -60,7 +60,7 @@ fun Text(
         emptyMap(),
         onTextLayout,
         style,
-        textColors
+        textColors,
     )
 }
 
@@ -102,18 +102,19 @@ fun Text(
             fontFamily = fontFamily,
             textDecoration = textDecoration,
             fontStyle = fontStyle,
-            letterSpacing = letterSpacing
-        )
+            letterSpacing = letterSpacing,
+        ),
     )
     BasicText(
-        text,
-        modifier,
-        mergedStyle,
-        onTextLayout,
-        overflow,
-        softWrap,
-        maxLines,
-        inlineContent
+        text = text,
+        modifier = modifier,
+        style = mergedStyle,
+        onTextLayout = onTextLayout,
+        overflow = overflow,
+        softWrap = softWrap,
+        maxLines = maxLines,
+        minLines = 1,
+        inlineContent = inlineContent,
     )
 }
 

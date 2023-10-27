@@ -1,8 +1,9 @@
 plugins {
     kotlin("jvm")
-    id("nebula.maven-publish")
-    id("nebula.source-jar")
+    id("com.netflix.nebula.maven-publish")
+    id("com.netflix.nebula.source-jar")
     id("com.bybutter.sisyphus.project")
+    id("org.jetbrains.compose")
     `java-library`
 }
 
