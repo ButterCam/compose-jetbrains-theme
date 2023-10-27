@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Upgrade to compose 1.5.2
+
 ## [2.1.0]
 - Provide BasicMainToolBar #18 
 - Disable minimize and maximize button when resizeable is false #19 
